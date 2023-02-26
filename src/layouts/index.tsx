@@ -1,8 +1,21 @@
-/*
- * @Author: liuhongbo liuhongbo@dip-ai.com
- * @Date: 2023-02-22 10:17:31
- * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-02-22 10:17:38
- * @FilePath: /minibbs_react/src/layouts/index.tsx
- * @Description: 约定式路由时的全局布局文件
- */
+import { Link, Outlet } from 'umi';
+import styles from './index.less';
+
+export default function Layout() {
+  return (
+    <div className={styles.navs}>
+      <ul>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/docs">Docs</Link>
+        </li>
+        <li>
+          <a href="https://github.com/umijs/umi">Github</a>
+        </li>
+      </ul>
+      <Outlet />
+    </div>
+  );
+}

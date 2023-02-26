@@ -1,28 +1,17 @@
 /*
- * @Author: liuhongbo liuhongbo@dip-ai.com
- * @Date: 2023-02-22 10:23:06
- * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-02-23 15:06:03
- * @FilePath: /minibbs_react/config/config.ts
- * @Description: 配置文件，优先级弱于umirc.ts
+ * @Author: liuhongbo 916196375@qq.com
+ * @Date: 2023-02-26 19:58:22
+ * @LastEditors: liuhongbo 916196375@qq.com
+ * @LastEditTime: 2023-02-26 20:01:58
+ * @FilePath: \minibbsReact\config\config.ts
+ * @Description: 配置文件，与.umirc.ts二选一
  */
-
-import { defineConfig } from 'umi';
-import routes from './routes';
+import { defineConfig } from "umi";
 
 export default defineConfig({
-  hash: true,
-  routes: routes,
-  mock: false, // 关闭mock
-  fastRefresh: {}, // 开启快速刷新
-  mfsu: {}, // 开启mfsu
-  webpack5: {},
-  manifest: {
-    basePath: '/',
-  },
-  base: '/',
-  publicPath: '/',
-  alias: {
-    config: '/config',
-  },
+  routes: [
+    { path: "/", component: "index" },
+    { path: "/docs", component: "docs" },
+  ],
+  npmClient: 'pnpm',
 });
