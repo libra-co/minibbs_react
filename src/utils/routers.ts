@@ -1,8 +1,8 @@
 /*
  * @Author: liuhongbo liuhongbo@dip-ai.com
  * @Date: 2023-02-27 20:47:43
- * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-02-28 16:48:15
+ * @LastEditors: liuhongbo 916196375@qq.com
+ * @LastEditTime: 2023-03-07 23:00:15
  * @FilePath: /minibbs_react/src/utils/routers.ts
  * @Description: routers
  */
@@ -31,6 +31,7 @@ const addPrefix = (router: Router, prefix: string = '') => {
 
 const routers = {
     login: url('/login'),
+    home: url('/home'),
 }
 
 export default routers

@@ -14,4 +14,8 @@ export default [
         path: routers.login,
         component: '@/Login',
     },
+    {
+        path: routers.home,
+        component:'@/Home'
+    }
 ]
