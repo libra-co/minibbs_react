@@ -1,20 +1,17 @@
 /*
- * @Author: error: error: git config user.name & please set dead value or install git && error: git config user.email & please set dead value or install git & please set dead value or install git
- * @Date: 2023-03-07 21:06:41
- * @LastEditors: error: error: git config user.name & please set dead value or install git && error: git config user.email & please set dead value or install git & please set dead value or install git
- * @LastEditTime: 2023-03-07 21:28:21
- * @FilePath: \MINIBBS_REACT\.umirc.ts
- * @Description: 
+ * @Author: liuhongbo liuhongbo@dip-ai.com
+ * @Date: 2023-02-27 15:50:33
+ * @LastEditors: liuhongbo 916196375@qq.com
+ * @LastEditTime: 2023-03-07 22:11:21
+ * @FilePath: /minibbs_react/.umirc.ts
+ * @Description: umi 配置， 优先级高于 config
  */
-import { defineConfig } from 'umi';
+import { defineConfig } from "umi";
 
 export default defineConfig({
-  nodeModulesTransform: {
-    type: 'none',
-  },
-  routes: [
-    { path: '/', component: '@/pages/index' },
-  ],
-  fastRefresh: {},
-  webpack5:{}
+  // routes: [
+  //   { path: "/", component: "index" },
+  //   { path: "/docs", component: "docs" },
+  // ],
+  npmClient: 'pnpm',
 });
