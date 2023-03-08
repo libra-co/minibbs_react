@@ -1,8 +1,8 @@
 /*
  * @Author: liuhongbo liuhongbo@dip-ai.com
  * @Date: 2023-02-28 16:51:24
- * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-03-02 16:11:29
+ * @LastEditors: liuhongbo 916196375@qq.com
+ * @LastEditTime: 2023-03-08 22:55:01
  * @FilePath: /minibbs_react/src/utils/request.ts
  * @Description: 封装 request
  */
