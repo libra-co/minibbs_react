@@ -2,7 +2,7 @@
  * @Author: liuhongbo liuhongbo@dip-ai.com
  * @Date: 2023-02-27 20:45:37
  * @LastEditors: liuhongbo 916196375@qq.com
- * @LastEditTime: 2023-03-08 23:56:25
+ * @LastEditTime: 2023-03-09 22:05:40
  * @FilePath: /minibbs_react/src/pages/Login/index.tsx
  * @Description: Login page
  */
@@ -11,30 +11,38 @@ import React, { useState } from 'react'
 import { EyeInvisibleOutline, EyeOutline } from 'antd-mobile-icons'
 
 import { LoginParams } from './const'
-import { login } from '@/utils/service/user'
+import { login, userProfile } from '@/utils/service/user'
 import { history } from 'umi'
 import routers from '@/utils/routers'
+import { TokenKey } from '@/utils/token'
 import './index.less'
 
 const Login = () => {
     // 控制密码是否可见
     const [visible, setVisible] = useState(false)
-
     const handleClickLogin = async (values: LoginParams) => {
         console.log('values', values)
         try {
-            const { status, message } = await login({ ...values, username: Number(values.username) })
-            console.log('status', status)
+            const { result: { uid, token = '' }, status } = await login({ ...values, username: Number(values.username) })
             if (status === 200) {
+                localStorage.setItem(TokenKey, token)
+                await getUserInfo(uid)
                 Toast.show({
-                    content: message,
+                    content: '登录成功',
                     afterClose: () => history.push(routers.home)
                 })
             } else {
-                Toast.show(message)
+                Toast.show('登录失败')
             }
         } catch (error) {
             console.log('error', error)
+        }
+    }
+
+    const getUserInfo = async (uid: number) => {
+        const { result, status } = await userProfile({ uid })
+        if (status === 200) {
+            console.log('result', result)
         }
     }
 

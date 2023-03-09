@@ -2,10 +2,12 @@
  * @Author: liuhongbo liuhongbo@dip-ai.com
  * @Date: 2023-02-27 20:47:43
  * @LastEditors: liuhongbo 916196375@qq.com
- * @LastEditTime: 2023-03-07 23:00:15
+ * @LastEditTime: 2023-03-09 22:44:11
  * @FilePath: /minibbs_react/src/utils/routers.ts
  * @Description: routers
  */
+
+import userCenter, { UserCenterRouters } from "./routers/userCenter"
 
 interface pathProps {
     name: string
@@ -18,20 +20,31 @@ export interface Router {
 }
 
 const url = (url: string, prefix: string = '') => {
-    return `${url}${prefix}`
+    return `${prefix}${url}`
 }
 
-const addPrefix = (router: Router, prefix: string = '') => {
+export const userPrefix = 'user_center'
+
+const addPrefix = <T>(router: Router[], prefix: string = ''): T => {
     const routerWithPrefix: Record<string, string> = {}
-    router.paths.forEach(item => {
-        routerWithPrefix[item.name] = url(item.value, prefix)
+    router.forEach(moduleItem => {
+        moduleItem.paths.forEach(item => {
+            routerWithPrefix[item.name] = url(item.value, prefix)
+        })
     })
-    return routerWithPrefix
+    return routerWithPrefix as T
 }
 
-const routers = {
+interface Routers extends UserCenterRouters {
+    login: string
+    home: string
+
+}
+
+const routers: Routers = {
     login: url('/login'),
     home: url('/home'),
+    ...addPrefix<UserCenterRouters>(userCenter, userPrefix),
 }
 
 export default routers

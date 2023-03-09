@@ -2,7 +2,7 @@
  * @Author: liuhongbo liuhongbo@dip-ai.com
  * @Date: 2023-02-28 16:51:24
  * @LastEditors: liuhongbo 916196375@qq.com
- * @LastEditTime: 2023-03-08 22:55:01
+ * @LastEditTime: 2023-03-09 21:51:10
  * @FilePath: /minibbs_react/src/utils/request.ts
  * @Description: 封装 request
  */
@@ -75,6 +75,7 @@ request.interceptors.request.use((url, options) => {
     if (method === 'post') {
         delete optionsInit.params
     } else if (method === 'get') {
+        console.log('optionsInit', optionsInit)
         delete optionsInit.data
     }
     return {
