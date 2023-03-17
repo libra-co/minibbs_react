@@ -1,11 +1,12 @@
 /*
  * @Author: liuhongbo 916196375@qq.com
  * @Date: 2023-03-07 22:58:20
- * @LastEditors: liuhongbo 916196375@qq.com
- * @LastEditTime: 2023-03-07 23:38:21
+ * @LastEditors: liuhongbo liuhongbo@dip-ai.com
+ * @LastEditTime: 2023-03-17 19:58:32
  * @FilePath: \MINIBBS_REACT\src\pages\Home\index.tsx
  * @Description: home页
  */
+import routers from '@/utils/routers'
 import { Button, Image, Space } from 'antd-mobile'
 import React from 'react'
 import { history } from 'umi'
@@ -18,7 +19,7 @@ const Home = () => {
     return (
         <div className='home-page'>
             <p className="title-bar">
-                <Button size='small' color='primary' fill='none'>我的地盘</Button>
+                <Button onClick={() => history.push(routers.user_center)} size='small' color='primary' fill='none'>我的地盘</Button>
                 <Button size='small' color='primary' fill='none'>空间</Button>
                 <Button size='small' color='primary' fill='none'>帖子</Button>
                 <Button size='small' color='primary' fill='none'>信箱</Button>

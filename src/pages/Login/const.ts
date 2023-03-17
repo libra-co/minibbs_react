@@ -2,15 +2,15 @@
  * @api /login
  */
 export interface LoginParams {
-    username: string | number
-    password: string
+  username: string | number
+  password: string
 }
 /**
  * @api /login
  */
 export interface LoginResult {
-    token: string
-    uid: number
+  token: string
+  uid: number
 }
 
 /**
@@ -29,7 +29,7 @@ export interface UserProfileResult {
   identity: number;
   role: number;
   reviews: number;
-  expireTime?: any;
+  expireTime?: null | string;
   badge: string[];
 }
 
