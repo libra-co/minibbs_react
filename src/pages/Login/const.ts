@@ -14,6 +14,21 @@ export interface LoginResult {
 }
 
 /**
+ * @description 性别枚举
+ */
+export enum GenderEnum {
+  'male',
+  'female',
+  'unknown',
+}
+
+export const genderObj = {
+  [GenderEnum.male]:'男',
+  [GenderEnum.female]:'女',
+  [GenderEnum.unknown]:'外星人',
+}
+
+/**
  * @api /user/profile
  */
 export interface UserProfileResult {
@@ -30,7 +45,9 @@ export interface UserProfileResult {
   role: number;
   reviews: number;
   expireTime?: null | string;
+  gender: GenderEnum
   badge: string[];
+  articleNum: number
 }
 
 // test001

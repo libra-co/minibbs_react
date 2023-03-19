@@ -2,13 +2,14 @@
  * @Author: liuhongbo 916196375@qq.com
  * @Date: 2023-03-09 22:26:45
  * @LastEditors: liuhongbo 916196375@qq.com
- * @LastEditTime: 2023-03-19 13:34:23
+ * @LastEditTime: 2023-03-19 20:44:14
  * @FilePath: \MINIBBS_REACT\src\pages\UserCenter\index.tsx
  * @Description: 个人中心
  */
 import { ComponentProps, ModelDvaState } from '@/interface'
+import routers, { routeTemplate } from '@/utils/routers'
 import { Space } from 'antd-mobile'
-import { connect } from 'umi'
+import { connect, history } from 'umi'
 import { IdentityEnum, RoleEnum } from './const'
 import './index.less'
 
@@ -48,7 +49,7 @@ const UserCenter = (props: Props) => {
             <p className='block-header'>我的设置</p>
             <Space className='block-body' direction='vertical' style={{ '--gap-vertical': '10px' }}>
                 <Space>
-                    <a>我的空间</a>
+                    <a onClick={() => history.push(routeTemplate(routers.user_profile, { uid: user.uid }))}>我的空间</a>
                     <a>修改资料</a>
                 </Space>
                 <Space>
@@ -59,7 +60,7 @@ const UserCenter = (props: Props) => {
             <p className='block-header'>相关信息</p>
             <Space className='block-body' direction='vertical' style={{ '--gap-vertical': '10px' }}>
                 <Space>
-                    <a>我的帖子</a>
+                    <a>我的帖子({user.articleNum})</a>
                     <a>回复({user.replyNum})</a>
                 </Space>
                 <Space>
