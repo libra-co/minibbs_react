@@ -1,21 +1,37 @@
 /*
-* @Author: liuhongbo liuhongbo@dip-ai.com
-* @Date: 2023-02-27 20:45:04
-* @LastEditors: liuhongbo liuhongbo@dip-ai.com
-* @LastEditTime: 2023-02-28 16:48:28
-* @FilePath: /minibbs_react/config/routes.ts
-* @Description: routes
-*/
+ * @Author: liuhongbo 916196375@qq.com
+ * @Date: 2023-03-07 22:09:53
+ * @LastEditors: liuhongbo 916196375@qq.com
+ * @LastEditTime: 2023-03-19 20:16:01
+ * @FilePath: \MINIBBS_REACT\config\routes.ts
+ * @Description: routes
+ */
 
-import routers from "@/utils/routers";
+import routers from '../src/utils/routers'
+import userCenter from './routes/userCenter'
+import userProfile from './routes/userProfile'
+
+const layoutsRoutes = [
+    {
+        path: routers.home,
+        component: '@/pages/Home'
+    },
+    ...userCenter,
+    ...userProfile,
+]
 
 export default [
     {
         path: routers.login,
-        component: '@/Login',
+        component: '@/pages/Login',
     },
     {
-        path: routers.home,
-        component:'@/Home'
-    }
+        path: '*',
+        redirect: routers.login,
+
+    },
+    {
+        component: '@/layouts/index',
+        routes: [...layoutsRoutes],
+    },
 ]

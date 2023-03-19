@@ -2,12 +2,11 @@
  * @Author: liuhongbo liuhongbo@dip-ai.com
  * @Date: 2023-02-28 16:51:24
  * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-03-02 16:11:29
+ * @LastEditTime: 2023-03-17 10:17:48
  * @FilePath: /minibbs_react/src/utils/request.ts
  * @Description: 封装 request
  */
 
-import { history } from '@/.umi/exports'
 import { extend, ResponseError } from 'umi-request'
 import { getToken, TokenKey } from './token'
 
@@ -75,6 +74,7 @@ request.interceptors.request.use((url, options) => {
     if (method === 'post') {
         delete optionsInit.params
     } else if (method === 'get') {
+        console.log('optionsInit', optionsInit)
         delete optionsInit.data
     }
     return {
