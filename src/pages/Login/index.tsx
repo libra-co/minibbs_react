@@ -24,7 +24,6 @@ const Login = (props: Props) => {
     // 控制密码是否可见
     const [visible, setVisible] = useState(false)
     const handleClickLogin = async (values: LoginParams) => {
-        console.log('values', values)
         try {
             const { result: { uid, token = '' }, status } = await login({ ...values, username: Number(values.username) })
             if (status === 200) {

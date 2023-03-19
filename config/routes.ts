@@ -2,7 +2,7 @@
  * @Author: liuhongbo 916196375@qq.com
  * @Date: 2023-03-07 22:09:53
  * @LastEditors: liuhongbo 916196375@qq.com
- * @LastEditTime: 2023-03-09 22:41:25
+ * @LastEditTime: 2023-03-19 13:00:17
  * @FilePath: \MINIBBS_REACT\config\routes.ts
  * @Description: routes
  */
@@ -18,10 +18,15 @@ export default [
     },
     {
         path: routers.home,
-        component:'@/pages/Home'
+        component: '@/pages/Home'
     },
     {
         path: routers.user_center,
-        component:'@/pages/UserCenter'
+        component: '@/pages/UserCenter'
+    },
+    {
+        path: '/',
+        component: '@/pages/Login',
+
     }
 ]
