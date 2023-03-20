@@ -1,3 +1,11 @@
+/*
+ * @Author: liuhongbo liuhongbo@dip-ai.com
+ * @Date: 2023-03-20 09:46:22
+ * @LastEditors: liuhongbo liuhongbo@dip-ai.com
+ * @LastEditTime: 2023-03-20 11:25:13
+ * @FilePath: /minibbs_react/src/pages/Login/const.ts
+ * @Description: Login const
+ */
 /**
  * @api /login
  */
@@ -49,5 +57,3 @@ export interface UserProfileResult {
   badge: string[];
   articleNum: number
 }
-
-// test001

@@ -2,25 +2,29 @@
  * @Author: liuhongbo 916196375@qq.com
  * @Date: 2023-03-07 22:58:20
  * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-03-17 19:58:32
+ * @LastEditTime: 2023-03-20 14:27:54
  * @FilePath: \MINIBBS_REACT\src\pages\Home\index.tsx
  * @Description: home页
  */
-import routers from '@/utils/routers'
+import { ComponentProps, ModelDvaState } from '@/interface'
+import routers, { routeTemplate } from '@/utils/routers'
 import { Button, Image, Space } from 'antd-mobile'
 import React from 'react'
-import { history } from 'umi'
+import { connect, history } from 'umi'
 import { adList, quickActionList } from './const'
 import './index.less'
 
-const Home = () => {
+type Props = PageStateToProps & ComponentProps & {}
+
+const Home = (props: Props) => {
+    const { user } = props
     const demoSrc = 'https://images.unsplash.com/photo-1567945716310-4745a6b7844b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=60'
 
     return (
         <div className='home-page'>
             <p className="title-bar">
                 <Button onClick={() => history.push(routers.user_center)} size='small' color='primary' fill='none'>我的地盘</Button>
-                <Button size='small' color='primary' fill='none'>空间</Button>
+                <Button onClick={() => history.push(routeTemplate(routers.user_profile, { uid: user.uid }))} size='small' color='primary' fill='none'>空间</Button>
                 <Button size='small' color='primary' fill='none'>帖子</Button>
                 <Button size='small' color='primary' fill='none'>信箱</Button>
             </p>
@@ -47,7 +51,16 @@ const Home = () => {
     )
 }
 
-export default Home
+const mapStateToProps = (modelState: ModelDvaState) => {
+    const { common } = modelState
+    return {
+        user: common.user
+    }
+}
+
+type PageStateToProps = ReturnType<typeof mapStateToProps>
+
+export default connect(mapStateToProps)(Home)
 
 const mockArticle = [
     {

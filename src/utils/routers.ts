@@ -1,8 +1,8 @@
 /*
  * @Author: liuhongbo liuhongbo@dip-ai.com
  * @Date: 2023-02-27 20:47:43
- * @LastEditors: liuhongbo 916196375@qq.com
- * @LastEditTime: 2023-03-19 20:41:15
+ * @LastEditors: liuhongbo liuhongbo@dip-ai.com
+ * @LastEditTime: 2023-03-20 11:06:09
  * @FilePath: /minibbs_react/src/utils/routers.ts
  * @Description: routers
  */
@@ -46,8 +46,8 @@ const url = (url: string, prefix: string = '') => {
     return `${prefix}${url}`
 }
 
-export const userPrefix = 'user_center' // 我的地盘
-export const userProfilePrefix = 'user_profile' // 用户空间
+export const userPrefix = '/user_center' // 我的地盘
+export const userProfilePrefix = '/user_profile' // 用户空间
 
 const addPrefix = <T>(router: Router[], prefix: string = ''): T => {
     const routerWithPrefix: Record<string, string> = {}
