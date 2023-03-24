@@ -1,8 +1,8 @@
 /*
  * @Author: liuhongbo 916196375@qq.com
  * @Date: 2023-03-09 22:26:45
- * @LastEditors: liuhongbo 916196375@qq.com
- * @LastEditTime: 2023-03-19 20:44:14
+ * @LastEditors: liuhongbo liuhongbo@dip-ai.com
+ * @LastEditTime: 2023-03-23 14:12:02
  * @FilePath: \MINIBBS_REACT\src\pages\UserCenter\index.tsx
  * @Description: 个人中心
  */
@@ -54,15 +54,15 @@ const UserCenter = (props: Props) => {
                     <a>修改资料</a>
                 </Space>
                 <Space>
-                    <a>我的收藏</a>
+                    <a onClick={() => history.push(routers.user_bookmark, { uid: user.uid })}>我的收藏</a>
                     <a>我的相册</a>
                 </Space>
             </Space>
             <p className='block-header'>相关信息</p>
             <Space className='block-body' direction='vertical' style={{ '--gap-vertical': '10px' }}>
                 <Space>
-                    <a>我的帖子({user.articleNum})</a>
-                    <a>回复({user.replyNum})</a>
+                    <a onClick={() => history.push(routeTemplate(routers.user_article, { uid: user.uid }))}>我的帖子({user.articleNum})</a>
+                    <a onClick={() => history.push(routeTemplate(routers.user_reply, { uid: user.uid }))}>回复({user.replyNum})</a>
                 </Space>
                 <Space>
                     <a>我的家族<span style={{ color: 'red' }}>(家族功能未实现)</span></a>
