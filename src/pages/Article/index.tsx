@@ -1,16 +1,24 @@
-import { history, useParams } from 'umi'
+import { connect, history, useParams } from 'umi'
 import { Button, Divider, Form, List, Space, Switch, TextArea, Toast } from 'antd-mobile'
-import React, { useEffect, useState } from 'react'
-import { ArticleDetailResult } from './const'
-import { articleDetail, articledisLike, articleLike } from '@/utils/service/article'
+import React, { FC, MutableRefObject, useEffect, useRef, useState } from 'react'
+import { ArticleDetailResult, ArticleForms, CommentAddParams, ReplyCommentInfo } from './const'
+import { articleDetail, articledisLike, articleLike, commentAdd } from '@/utils/service/article'
 import { required } from '@/utils/forms'
 import './index.less'
 import CommentList from './components/CommentList'
+import FooterRouteBtn from '@/components/FooterRouteBtn'
+import { ComponentProps, ModelDvaState } from '@/interface'
+import MoreArticleList from '@/components/MoreArticleList'
 
-const Article = () => {
+type Props = PageStateProps & ComponentProps & {}
+
+const Article: FC<Props> = ({ user }) => {
     const routerParams = useParams<{ aid: string }>()
     const [articleDetailInfo, setArticleDetailInfo] = useState<ArticleDetailResult>()
+    // 记录回复楼中楼的信息
+    const [replyCommentInfo, setReplyCommentInfo] = useState<ReplyCommentInfo>({} as ReplyCommentInfo)
     const [form] = Form.useForm<{}>()
+    const commentListRef = useRef<{ refreshCommentList: () => void }>()
 
     useEffect(() => {
         getArticleDetail()
@@ -61,19 +69,49 @@ const Article = () => {
     }
 
 
+    const handleSubmitComment = async (value: ArticleForms) => {
+        console.log('commentListRef', commentListRef)
+        const query: CommentAddParams = {
+            ...value,
+            ...replyCommentInfo,
+            aid: routerParams.aid!,
+            isNoteCommentAuth: 0 as 0,
+        }
+        try {
+            const { status, message } = await commentAdd(query)
+            if (status === 200) {
+                Toast.show({
+                    content: message,
+                    duration: 500,
+                    afterClose: commentListRef.current?.refreshCommentList
+                })
+            }
+        } catch (error) {
+            console.log('commentListRef', commentListRef)
+            console.log('error', error)
+        }
+    }
+    console.log('commentListRef', commentListRef)
+
     return (
+
         <div className='article-page'>
-            <Space direction='vertical' className='title-block'>
+            <p className='page-header' >
+                帖子
+            </p>
+            <Space direction='vertical' className='title-block padding-0-8'>
                 <div>[标题] {articleDetailInfo?.title}</div>
                 <div>[时间] {articleDetailInfo?.createTime}</div>
             </Space>
 
             <Divider />
-            {
-                articleDetailInfo?.content
-            }
+            <div className='padding-0-8'>
+                {
+                    articleDetailInfo?.content
+                }
+            </div>
             <Divider />
-            <Space direction='vertical' className='user-info'>
+            <Space direction='vertical' className='user-info padding-0-8' >
                 <div>[楼主] {articleDetailInfo?.username}</div>
                 <div>[荣誉] {articleDetailInfo?.badge}</div>
                 <div>[地区] {articleDetailInfo?.city} <a >交友 <span style={{ color: 'red' }}>暂时没做</span></a></div>
@@ -84,21 +122,42 @@ const Article = () => {
                     <a onClick={handleDislikeArticle}>踩({articleDetailInfo?.dislikeNum})</a>
                 </Space>
             </Space>
-            <Form form={form} footer={[<Button onClick={form.submit}>快速回复</Button>]}>
+            <Form form={form} onFinish={handleSubmitComment} footer={[<Button onClick={form.submit}>快速回复</Button>]}>
                 <Form.Item
-                    name='delivery'
+                    name='isNoteAriticleAuth'
                     label='通知楼主?'
                     layout='horizontal'
+                    initialValue={0}
                 >
                     <Switch />
                 </Form.Item>
-                <Form.Item name='replyText' rules={required('请填写回复内容!')}>
+                <Form.Item name='content' rules={required('请填写回复内容!')}>
                     <TextArea placeholder='请不要乱回复,以免被加黑' />
                 </Form.Item>
             </Form>
-            <CommentList aid={routerParams.aid!} />
+            <CommentList aid={routerParams.aid!} ref={commentListRef} loginUid={user.uid} handleClickReplyComent={setReplyCommentInfo} />
+            <p className='block-header' >
+                <Space>
+                    [<a>发表主题</a>]
+                    <a>最新</a>
+                    <span>-</span>
+                    <a>搜索</a>
+                </Space>
+            </p>
+            <MoreArticleList />
+
+            <FooterRouteBtn />
         </div>
     )
 }
 
-export default Article
+const mapStateToProps = (modelState: ModelDvaState) => {
+    const { common } = modelState
+    return {
+        user: common.user
+    }
+}
+
+type PageStateProps = ReturnType<typeof mapStateToProps>
+
+export default connect(mapStateToProps)(Article)

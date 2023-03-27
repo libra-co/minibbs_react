@@ -1,3 +1,11 @@
+/*
+ * @Author: liuhongbo 916196375@qq.com
+ * @Date: 2023-03-25 18:08:37
+ * @LastEditors: liuhongbo 916196375@qq.com
+ * @LastEditTime: 2023-03-26 15:18:20
+ * @FilePath: \MINIBBS_REACT\src\components\MoreArticleList\index.tsx
+ * @Description: moreArticleList
+ */
 import routers, { routeTemplate } from '@/utils/routers'
 import { articleHomeArticle } from '@/utils/service/article'
 import { List, Space } from 'antd-mobile'
@@ -29,11 +37,11 @@ const MoreArticleList = () => {
 
   return (
     <div className='more-article-page'>
-      <Space direction='vertical' className='article-row'>
+      <Space direction='vertical' className='article-row padding-0-8'>
         {
           moreArticleList.map((article, index) => {
             return <>
-              <div>{index + 1}. <a onClick={() => history.push(routeTemplate(routers.article, { aid: article.aid }))} >{article.title}</a> </div>
+              <div key={article.aid}>{index + 1}. <a onClick={() => history.push(routeTemplate(routers.article, { aid: article.aid }))} >{article.title}</a> </div>
             </>
           })
         }

@@ -1,8 +1,8 @@
 /*
  * @Author: liuhongbo liuhongbo@dip-ai.com
  * @Date: 2023-03-24 16:08:25
- * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-03-24 17:02:05
+ * @LastEditors: liuhongbo 916196375@qq.com
+ * @LastEditTime: 2023-03-26 16:19:47
  * @FilePath: /minibbs_react/src/pages/Article/const.ts
  * @Description: article const
  */
@@ -36,4 +36,28 @@ export interface ArticleDetailResult {
     signatrue: string
     badge: string[]
     city: string
+}
+
+/**
+ * @api /comment/add
+ */
+export interface CommentAddParams extends Partial<ReplyCommentInfo> {
+    aid: string;
+    content: string;
+    isNoteAriticleAuth: 0 | 1;
+    isNoteCommentAuth: 0 | 1;
+}
+
+export interface ArticleForms {
+    content: string;
+    isNoteAriticleAuth: 0 | 1;
+    isNoteCommentAuth: 0 | 1;
+
+}
+
+
+// 如果存在,则说明为回复为 楼中楼
+export interface ReplyCommentInfo {
+    rcid: string;
+    ruid: number;
 }

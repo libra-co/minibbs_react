@@ -1,8 +1,8 @@
 /*
  * @Author: liuhongbo 916196375@qq.com
  * @Date: 2023-03-07 22:09:53
- * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-03-24 17:20:06
+ * @LastEditors: liuhongbo 916196375@qq.com
+ * @LastEditTime: 2023-03-26 17:57:06
  * @FilePath: \MINIBBS_REACT\config\routes.ts
  * @Description: routes
  */
@@ -28,12 +28,11 @@ export default [
         component: '@/pages/Login',
     },
     {
-        path: '*',
-        redirect: routers.login,
-
-    },
-    {
         component: '@/layouts/index',
         routes: [...layoutsRoutes],
+    },
+    {
+        path: '*',
+        redirect: routers.login,
     },
 ]

@@ -1,8 +1,8 @@
 /*
  * @Author: liuhongbo 916196375@qq.com
  * @Date: 2023-03-09 22:26:45
- * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-03-23 14:12:02
+ * @LastEditors: liuhongbo 916196375@qq.com
+ * @LastEditTime: 2023-03-26 17:20:05
  * @FilePath: \MINIBBS_REACT\src\pages\UserCenter\index.tsx
  * @Description: 个人中心
  */
@@ -22,7 +22,7 @@ const UserCenter = (props: Props) => {
     const { user } = props
     return (
         <div className='user-center-page' >
-            <p className='user-center-header'>欢迎您: {user?.username}</p>
+            <p className='page-header'>欢迎您: {user?.username}</p>
             <Space className='block-body' direction='vertical' style={{ '--gap-vertical': '1px' }}>
                 <div>
                     <a className='pd0-10 padding-left-0'>信箱</a>(0/0)

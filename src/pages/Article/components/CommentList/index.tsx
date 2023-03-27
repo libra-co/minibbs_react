@@ -2,31 +2,32 @@
  * @Author: liuhongbo 916196375@qq.com
  * @Date: 2023-03-25 17:21:10
  * @LastEditors: liuhongbo 916196375@qq.com
- * @LastEditTime: 2023-03-25 18:36:28
+ * @LastEditTime: 2023-03-26 16:43:31
  * @FilePath: \MINIBBS_REACT\src\pages\Article\components\CommentList\index.tsx
  * @Description: 评论列表
  */
 
-import FooterRouteBtn from '@/components/FooterRouteBtn'
 import MoreArticleList from '@/components/MoreArticleList'
 import PaginationBtn from '@/components/PaginationBtn'
 import routers, { routeTemplate } from '@/utils/routers'
-import { commentList } from '@/utils/service/article'
-import { List, Space } from 'antd-mobile'
-import React, { useEffect, useState } from 'react'
+import { commentDelete, commentList } from '@/utils/service/article'
+import { List, Space, Toast } from 'antd-mobile'
+import React, { ForwardedRef, forwardRef,  useEffect, useImperativeHandle, useState } from 'react'
 import { history } from 'umi'
+import { ReplyCommentInfo } from '../../const'
 import { CommentListItem } from './const'
 import './index.less'
 
 interface Props {
   aid: string
+  handleClickReplyComent: React.Dispatch<React.SetStateAction<ReplyCommentInfo>>
+  loginUid: number
 }
 
-const CommentList = ({ aid }: Props) => {
+const CommentList = ({ aid, handleClickReplyComent, loginUid }: Props, ref: ForwardedRef<{ refreshCommentList: () => void } | undefined>) => {
   const [comentLists, setComentLists] = useState<CommentListItem[]>([])
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [totalNum, setTotalNum] = useState<number>(0)
-
   useEffect(() => {
     getCommentList()
   }, [])
@@ -53,19 +54,40 @@ const CommentList = ({ aid }: Props) => {
     getCommentList(currentPage - 1)
   }
 
+  const handleClickDelete = async (cid: string) => {
+    try {
+      const { status, message } = await commentDelete({ cid })
+      if (status === 200) {
+        Toast.show({
+          content: message,
+          duration: 500,
+          afterClose: () => getCommentList(currentPage)
+          
+        })
+      }
+    } catch (error) {
+      console.log('error', error)
+    }
+  }
+
+  useImperativeHandle(ref,
+    () => ({ refreshCommentList: () => getCommentList(currentPage) }),
+    [],
+  )
+
   return (
     <div className='comment-list-page'>
       <List >
         {
           comentLists.map((comment) => {
             return (<>
-              <List.Item>
-                [<a>回复</a>]
+              <List.Item key={comment.cid}>
+                [<a onClick={() => handleClickReplyComent({ rcid: comment.cid, ruid: comment.commentUid })}>回复</a>]
                 <a className='mr0-5' onClick={() => history.push(routeTemplate(routers.user_profile, { uid: comment.commentUid }))} >{comment.commentUsername}</a>
                 {comment.replyUsername && <span className='mr0-5' >回复 <a onClick={() => history.push(routeTemplate(routers.user_profile, { uid: comment.replyUid }))}>{comment.replyUsername}</a></span>}
                 : {comment.content}
                 <span> ({comment.commentTime})</span>
-                { <a >删除</a>}
+                {comment.commentUid === loginUid && <a onClick={() => handleClickDelete(comment.cid)} className='margin-left-5'>删除</a>}
               </List.Item>
             </>)
           })
@@ -77,21 +99,11 @@ const CommentList = ({ aid }: Props) => {
         isDisableNextPageBtn={currentPage >= Math.ceil(totalNum / 10)}
         isDisableLastPageBtn={currentPage === 1}
       />
-      <FooterRouteBtn />
       <div>
-        <p className='block-header' >
-          <Space>
 
-            [<a>发表主题</a>]
-            <a>最新</a>
-            <span>-</span>
-            <a>搜索</a>
-          </Space>
-        </p>
-        <MoreArticleList />
       </div>
     </div>
   )
 }
 
-export default CommentList
+export default forwardRef(CommentList)
