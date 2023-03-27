@@ -12,7 +12,7 @@ import PaginationBtn from '@/components/PaginationBtn'
 import routers, { routeTemplate } from '@/utils/routers'
 import { commentDelete, commentList } from '@/utils/service/article'
 import { List, Space, Toast } from 'antd-mobile'
-import React, { ForwardedRef, forwardRef,  useEffect, useImperativeHandle, useState } from 'react'
+import React, { ForwardedRef, forwardRef, useEffect, useImperativeHandle, useState } from 'react'
 import { history } from 'umi'
 import { ReplyCommentInfo } from '../../const'
 import { CommentListItem } from './const'
@@ -62,7 +62,7 @@ const CommentList = ({ aid, handleClickReplyComent, loginUid }: Props, ref: Forw
           content: message,
           duration: 500,
           afterClose: () => getCommentList(currentPage)
-          
+
         })
       }
     } catch (error) {
@@ -93,12 +93,12 @@ const CommentList = ({ aid, handleClickReplyComent, loginUid }: Props, ref: Forw
           })
         }
       </List>
-      <PaginationBtn
+      {comentLists.length > 0 && <PaginationBtn
         onNextPage={onNextPage}
         onLastPage={onLastPage}
         isDisableNextPageBtn={currentPage >= Math.ceil(totalNum / 10)}
         isDisableLastPageBtn={currentPage === 1}
-      />
+      />}
       <div>
 
       </div>

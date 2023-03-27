@@ -1,8 +1,8 @@
 /*
  * @Author: liuhongbo 916196375@qq.com
  * @Date: 2023-03-07 22:58:20
- * @LastEditors: liuhongbo 916196375@qq.com
- * @LastEditTime: 2023-03-26 17:26:36
+ * @LastEditors: liuhongbo liuhongbo@dip-ai.com
+ * @LastEditTime: 2023-03-27 17:32:29
  * @FilePath: \MINIBBS_REACT\src\pages\Home\index.tsx
  * @Description: home页
  */
@@ -62,7 +62,7 @@ const Home = (props: Props) => {
                 </Space>
             </div>
             <div className="bbs-title-bar">
-                <b>[</b><Button color='primary' fill='none' >妖火论坛</Button> <b>]</b> <Button color='primary' fill='none' >新帖</Button> - <Button color='primary' fill='none' >发帖</Button>
+                <b>[</b><Button color='primary' fill='none' >妖水论坛</Button> <b>]</b> <Button color='primary' fill='none' >新帖</Button> - <Button onClick={() => history.push(routeTemplate(routers.blockChosen, {}))} color='primary' fill='none' >发帖</Button>
             </div>
             <div className="article-box">
                 <Space className='article-box-list' direction='vertical'>

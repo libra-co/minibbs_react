@@ -1,14 +1,22 @@
+/*
+ * @Author: liuhongbo liuhongbo@dip-ai.com
+ * @Date: 2023-03-27 11:45:35
+ * @LastEditors: liuhongbo liuhongbo@dip-ai.com
+ * @LastEditTime: 2023-03-27 16:44:39
+ * @FilePath: /minibbs_react/src/pages/Article/index.tsx
+ * @Description: ariticle
+ */
 import { connect, history, useParams } from 'umi'
 import { Button, Divider, Form, List, Space, Switch, TextArea, Toast } from 'antd-mobile'
 import React, { FC, MutableRefObject, useEffect, useRef, useState } from 'react'
 import { ArticleDetailResult, ArticleForms, CommentAddParams, ReplyCommentInfo } from './const'
 import { articleDetail, articledisLike, articleLike, commentAdd } from '@/utils/service/article'
 import { required } from '@/utils/forms'
-import './index.less'
 import CommentList from './components/CommentList'
 import FooterRouteBtn from '@/components/FooterRouteBtn'
 import { ComponentProps, ModelDvaState } from '@/interface'
 import MoreArticleList from '@/components/MoreArticleList'
+import './index.less'
 
 type Props = PageStateProps & ComponentProps & {}
 
@@ -22,7 +30,8 @@ const Article: FC<Props> = ({ user }) => {
 
     useEffect(() => {
         getArticleDetail()
-    }, [])
+        window.scrollTo(0, 0)
+    }, [routerParams.aid])
 
     const getArticleDetail = async () => {
         const failCondition = () => Toast.show({
@@ -82,6 +91,14 @@ const Article: FC<Props> = ({ user }) => {
             if (status === 200) {
                 Toast.show({
                     content: message,
+                    afterClose: () => {
+                        commentListRef.current?.refreshCommentList()
+                        form.resetFields()
+                    }
+                })
+            } else {
+                Toast.show({
+                    content: message,
                     duration: 500,
                     afterClose: commentListRef.current?.refreshCommentList
                 })
@@ -127,9 +144,9 @@ const Article: FC<Props> = ({ user }) => {
                     name='isNoteAriticleAuth'
                     label='通知楼主?'
                     layout='horizontal'
-                    initialValue={0}
+                    initialValue={1}
                 >
-                    <Switch />
+                    <Switch defaultChecked />
                 </Form.Item>
                 <Form.Item name='content' rules={required('请填写回复内容!')}>
                     <TextArea placeholder='请不要乱回复,以免被加黑' />
@@ -145,7 +162,6 @@ const Article: FC<Props> = ({ user }) => {
                 </Space>
             </p>
             <MoreArticleList />
-
             <FooterRouteBtn />
         </div>
     )
