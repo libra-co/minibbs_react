@@ -2,7 +2,7 @@
  * @Author: liuhongbo liuhongbo@dip-ai.com
  * @Date: 2023-03-24 15:22:04
  * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-03-27 18:21:23
+ * @LastEditTime: 2023-03-28 11:14:36
  * @FilePath: /minibbs_react/src/utils/service/article.ts
  * @Description: article service
  */
@@ -11,7 +11,7 @@ import { ArticleHomeArticle, ArticleHomeArticleParams } from "@/components/MoreA
 import { BlockListItem, BlockListParams } from "@/pages/Article/BlockChosen/const";
 import { CommentListParams, CommentListResult } from "@/pages/Article/components/CommentList/const";
 import { ArticleDetailParams, ArticleDetailResult, CommentAddParams } from "@/pages/Article/const";
-import { ArticlePostParams } from "@/pages/Article/PostArticle/const";
+import { ArticlePostParams, ArticlePostReturn, BlockDetailParams, BlockDetailResult } from "@/pages/Article/PostArticle/const";
 import request, { IResponse } from "../request";
 
 
@@ -64,7 +64,7 @@ export function commentAdd(params: CommentAddParams): Promise<IResponse> {
     })
 }
 
-export function articlePost(params: ArticlePostParams): Promise<IResponse> {
+export function articlePost(params: ArticlePostParams): Promise<IResponse<ArticlePostReturn>> {
     return request('/article/post', {
         method: 'POST',
         params: { ...params }
@@ -74,6 +74,13 @@ export function articlePost(params: ArticlePostParams): Promise<IResponse> {
 export function blockList(params: BlockListParams = {}): Promise<IResponse<BlockListItem[]>> {
     return request('/block/list', {
         method: 'POST',
+        params: { ...params }
+    })
+}
+
+export function blockDetail(params: BlockDetailParams): Promise<IResponse<BlockDetailResult>> {
+    return request('/block/detail', {
+        method: 'GET',
         params: { ...params }
     })
 }

@@ -1,10 +1,11 @@
-import { useParams } from 'umi'
+import { history, useParams } from 'umi'
 import FooterRouteBtn from '@/components/FooterRouteBtn'
 import PaginationBtn from '@/components/PaginationBtn'
 import { List } from 'antd-mobile'
 import React, { useEffect, useState } from 'react'
 import { userCommentList } from '@/utils/service/user'
 import { UserCommentListParams, UserComentItem } from './const'
+import routers, { routeTemplate } from '@/utils/routers'
 
 const UserReply = () => {
     const [replyList, setReplyList] = useState<UserComentItem[]>([])
@@ -56,7 +57,7 @@ const UserReply = () => {
                 {replyList.map((reply, index) => (
                     <List.Item
                         key={reply.aid}
-                        description={<span>{reply.commentTime} <a>查看</a></span>}
+                        description={<span>{reply.commentTime} <a onClick={() => history.push(routeTemplate(routers.article, { aid: reply.aid }))}>查看</a></span>}
                     >
                         {`${((currentPage - 1) * 10) + 1 + index}.${reply.content}`}
                     </List.Item>

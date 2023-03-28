@@ -2,7 +2,7 @@
  * @Author: liuhongbo liuhongbo@dip-ai.com
  * @Date: 2023-03-20 13:54:03
  * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-03-20 14:18:15
+ * @LastEditTime: 2023-03-28 11:35:17
  * @FilePath: /minibbs_react/src/components/FooterRouteBtn/index.tsx
  * @Description: 返回上级返回首页的按钮
  */
@@ -18,7 +18,7 @@ const FooterRouteBtn = () => {
         <div className='footer-btn-page'>
             <Space className='footer-btn-box' direction='horizontal' justify='center' block >
                 <Button className='route-btn' block fill='outline' onClick={() => history.back()} shape='default' color='primary'>
-                    返回上级
+                    返回上页
                 </Button>
                 <Button className='route-btn' block fill='outline' onClick={() => history.push(routers.home)} shape='default' color='primary'>
                     返回首页
