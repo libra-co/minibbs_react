@@ -2,7 +2,7 @@
  * @Author: liuhongbo 916196375@qq.com
  * @Date: 2023-03-07 22:58:20
  * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-03-27 17:32:29
+ * @LastEditTime: 2023-03-31 15:54:22
  * @FilePath: \MINIBBS_REACT\src\pages\Home\index.tsx
  * @Description: home页
  */
@@ -47,8 +47,8 @@ const Home = (props: Props) => {
             <p className="title-bar">
                 <Button onClick={() => history.push(routers.user_center)} size='small' color='primary' fill='none'>我的地盘</Button>
                 <Button onClick={() => history.push(routeTemplate(routers.user_profile, { uid: user.uid }))} size='small' color='primary' fill='none'>空间</Button>
-                <Button size='small' color='primary' fill='none'>帖子</Button>
-                <Button size='small' color='primary' fill='none'>信箱</Button>
+                <Button onClick={() => history.push(routeTemplate(routers.user_article, { uid: user.uid }))} size='small' color='primary' fill='none'>帖子</Button>
+                <Button onClick={() => history.push(routeTemplate(routers.user_mail, {}))} size='small' color='primary' fill='none'>信箱</Button>
             </p>
             <Image className='logo' src={demoSrc} />
             <div className='quick-action-box'>

@@ -2,7 +2,7 @@
  * @Author: liuhongbo liuhongbo@dip-ai.com
  * @Date: 2023-03-20 09:46:22
  * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-03-28 14:06:41
+ * @LastEditTime: 2023-03-31 15:47:20
  * @FilePath: /minibbs_react/config/routes/userProfile.ts
  * @Description: 用户空间
  */
@@ -33,5 +33,10 @@ export default [
         path: routers.user_bookmark,
         name: 'User Bookmark',
         component: '@/pages/UserProfile/UserBooked',
+    },
+    {
+        path: routers.user_mail,
+        name: 'User Mail',
+        component: '@/pages/UserProfile/UserMail',
     },
 ]

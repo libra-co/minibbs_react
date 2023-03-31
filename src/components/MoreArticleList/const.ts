@@ -1,23 +1,30 @@
+/*
+ * @Author: liuhongbo liuhongbo@dip-ai.com
+ * @Date: 2023-03-27 11:45:35
+ * @LastEditors: liuhongbo liuhongbo@dip-ai.com
+ * @LastEditTime: 2023-03-31 15:11:16
+ * @FilePath: /minibbs_react/src/components/MoreArticleList/const.ts
+ * @Description: 推荐帖子
+ */
+
+import { PaginationInterface } from "@/utils/commonInterface";
+
 /**
  * @api /article/homeArticle
  */
-export interface ArticleHomeArticleParams {
-  pageNum: number;
-  pageSize: number;
+export interface ArticleHomeArticleParams extends PaginationInterface {
 }
 
 /**
  * @api /article/homeArticle
  */
-export interface ArticleHomeArticle {
+export interface ArticleHomeArticle extends PaginationInterface {
   dataList: ArticleHomeArticleListItem[];
-  pageNum: number;
-  pageSize: number;
   total: number;
 }
 
 export interface ArticleHomeArticleListItem {
-aid: string;
-title: string;
+  aid: string;
+  title: string;
   userName: string;
 }

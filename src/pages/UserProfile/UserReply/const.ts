@@ -2,24 +2,22 @@
  * @Author: liuhongbo liuhongbo@dip-ai.com
  * @Date: 2023-03-22 15:51:39
  * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-03-23 14:18:55
+ * @LastEditTime: 2023-03-31 15:12:21
  * @FilePath: /minibbs_react/src/pages/UserProfile/UserReply/const.ts
  * @Description: userReply const
  */
 
+import { PaginationInterface } from "@/utils/commonInterface";
+
 /**
  * @param uid 如果不传则默认查询登录用户的 uid
  */
-export interface UserCommentListParams {
+export interface UserCommentListParams extends PaginationInterface {
     uid?: number
-    pageNum: number,
-    pageSize: number,
 }
 
-export interface UserCommentListResult {
+export interface UserCommentListResult extends PaginationInterface {
     dataList: UserComentItem[];
-    pageNum: number;
-    pageSize: number;
     total: number;
 }
 

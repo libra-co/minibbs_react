@@ -1,8 +1,8 @@
 /*
  * @Author: liuhongbo 916196375@qq.com
  * @Date: 2023-03-09 22:26:45
- * @LastEditors: liuhongbo 916196375@qq.com
- * @LastEditTime: 2023-03-26 17:20:05
+ * @LastEditors: liuhongbo liuhongbo@dip-ai.com
+ * @LastEditTime: 2023-03-31 18:04:51
  * @FilePath: \MINIBBS_REACT\src\pages\UserCenter\index.tsx
  * @Description: 个人中心
  */
@@ -25,7 +25,7 @@ const UserCenter = (props: Props) => {
             <p className='page-header'>欢迎您: {user?.username}</p>
             <Space className='block-body' direction='vertical' style={{ '--gap-vertical': '1px' }}>
                 <div>
-                    <a className='pd0-10 padding-left-0'>信箱</a>(0/0)
+                    <a onClick={() => history.push(routers.user_mail, {})} className='pd0-10 padding-left-0'>信箱</a>({user.unreadMailNum}/{user.mailNum})
                     <a className='pd0-10'>好友</a>({user?.friendsNum})
                 </div>
                 <p>我的ID:{user.uid}</p>

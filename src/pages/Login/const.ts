@@ -31,9 +31,9 @@ export enum GenderEnum {
 }
 
 export const genderObj = {
-  [GenderEnum.male]:'男',
-  [GenderEnum.female]:'女',
-  [GenderEnum.unknown]:'外星人',
+  [GenderEnum.male]: '男',
+  [GenderEnum.female]: '女',
+  [GenderEnum.unknown]: '外星人',
 }
 
 /**
@@ -42,6 +42,7 @@ export const genderObj = {
 export interface UserProfileResult {
   friendsNum: number;
   mailNum: number;
+  unreadMailNum: number
   replyNum: number;
   username: string;
   coin: number;

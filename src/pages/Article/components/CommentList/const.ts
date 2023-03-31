@@ -1,19 +1,17 @@
+import { PaginationInterface } from "@/utils/commonInterface";
+
 /**
  * @api /comment/list
  */
-export interface CommentListParams {
+export interface CommentListParams extends PaginationInterface {
     aid: string
-    pageNum: number,
-    pageSize: number,
 }
 
 /**
  * @api /comment/list
  */
-export interface CommentListResult {
+export interface CommentListResult extends PaginationInterface {
     dataList: CommentListItem[];
-    pageNum: number;
-    pageSize: number;
     total: number;
 }
 
