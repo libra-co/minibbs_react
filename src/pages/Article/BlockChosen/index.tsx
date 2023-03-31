@@ -6,6 +6,7 @@
  * @FilePath: /minibbs_react/src/pages/Article/BlockChosen/index.tsx
  * @Description: block chosen
  */
+import FooterRouteBtn from '@/components/FooterRouteBtn'
 import routers, { routeTemplate } from '@/utils/routers'
 import { blockList } from '@/utils/service/article'
 import { Button, Divider, Space } from 'antd-mobile'
@@ -16,7 +17,7 @@ import './index.less'
 
 const BlockChosen = () => {
     const [allBlockList, setAllBlockList] = useState<BlockListItem[]>([])
-    
+
     useEffect(() => {
         getAllBlockList()
     }, [])
@@ -62,6 +63,7 @@ const BlockChosen = () => {
                 <Button color='primary' fill='none' >投诉建议</Button>
             </div>
             <Divider />
+            <FooterRouteBtn />
         </div>
     )
 }
