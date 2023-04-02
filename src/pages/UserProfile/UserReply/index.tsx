@@ -51,9 +51,8 @@ const UserReply = () => {
 
     return (
         <div className='user-reply-page'>
-            <List header={
-                <div>回复列表</div>
-            }>
+            <p className="page-header">回复列表</p>
+            <List>
                 {replyList.map((reply, index) => (
                     <List.Item
                         key={reply.aid}

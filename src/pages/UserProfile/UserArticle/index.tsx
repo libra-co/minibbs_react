@@ -58,9 +58,8 @@ const UserArticle = () => {
 
     return (
         <div className='user-article-page'>
-            <List header={
-                <div>帖子列表</div>
-            }>
+            <p className='page-header'>帖子列表</p>
+            <List>
                 {articleList.map((article, index) => (
                     <List.Item
 

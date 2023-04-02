@@ -17,6 +17,7 @@ import FooterRouteBtn from '@/components/FooterRouteBtn'
 import { ComponentProps, ModelDvaState } from '@/interface'
 import MoreArticleList from '@/components/MoreArticleList'
 import './index.less'
+import routers, { routeTemplate } from '@/utils/routers'
 
 type Props = PageStateProps & ComponentProps & {}
 
@@ -129,7 +130,7 @@ const Article: FC<Props> = ({ user }) => {
             </div>
             <Divider />
             <Space direction='vertical' className='user-info padding-0-8' >
-                <div>[楼主] {articleDetailInfo?.username}</div>
+                <div>[楼主] <a onClick={() => history.push(routeTemplate(routers.user_profile, { uid: articleDetailInfo?.uid! }))}>{articleDetailInfo?.username}</a></div>
                 <div>[荣誉] {articleDetailInfo?.badge}</div>
                 <div>[地区] {articleDetailInfo?.city} <a >交友 <span style={{ color: 'red' }}>暂时没做</span></a></div>
                 <div><span>[操作] </span> <Space><a>管理</a><a>举报</a><a>收藏</a><a>打赏</a></Space></div>

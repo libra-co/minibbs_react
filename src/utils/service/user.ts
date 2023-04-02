@@ -104,3 +104,13 @@ export function mailDelete(params: { mid: string }): Promise<IResponse> {
     })
 }
 
+/**
+ * @description 标记已读
+ */
+export function mailRead(params: { mid: string }): Promise<IResponse> {
+    return request('/mail/read', {
+        method: 'POST',
+        params: { ...params }
+    })
+}
+

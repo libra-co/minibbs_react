@@ -1,8 +1,8 @@
 /*
  * @Author: liuhongbo liuhongbo@dip-ai.com
  * @Date: 2023-03-31 14:58:11
- * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-03-31 18:01:05
+ * @LastEditors: liuhongbo 916196375@qq.com
+ * @LastEditTime: 2023-04-01 17:43:46
  * @FilePath: /minibbs_react/src/pages/UserProfile/UserMail/index.tsx
  * @Description: 信箱
  */
@@ -10,7 +10,7 @@ import { history } from 'umi'
 import FooterRouteBtn from '@/components/FooterRouteBtn'
 import PaginationBtn from '@/components/PaginationBtn'
 import routers, { routeTemplate } from '@/utils/routers'
-import { mailDelete, mailList } from '@/utils/service/user'
+import { mailDelete, mailList, mailRead } from '@/utils/service/user'
 import { Form, Input, List, Space, Toast } from 'antd-mobile'
 import React, { useEffect, useState } from 'react'
 import { MailListParams, MailListResultItem, UserMailForm } from './const'
@@ -58,12 +58,30 @@ const UserMail = () => {
         }
     }
 
+    // 标记被点击的邮件为已读
+    const handleMailRead = async (mid: string) => {
+        try {
+            const { status, message } = await mailRead({ mid })
+            if (status === 200) {
+                let currentNumPage = Math.ceil((totalNum - 1) / 10) === 0 ? 1 : Math.ceil((totalNum - 1) / 10)
+                getMailList({ currentPage: currentNumPage, keywords: searchKeyWords })
+            }
+        } catch (error) {
+            console.log('error', error)
+        }
+    }
+
     const onNextPage = () => {
         getMailList({ currentPage: currentNum + 1 })
     }
 
     const onLastPage = () => {
         getMailList({ currentPage: currentNum - 1 })
+    }
+
+    const handleClickMail = async (mid: string, aid: string) => {
+        await handleMailRead(mid)
+        history.push(routeTemplate(routers.article, { aid }))
     }
 
     // 渲染信箱列表
@@ -73,7 +91,7 @@ const UserMail = () => {
                 <List.Item>
                     <p>
                         <Space>
-                            <a onClick={() => history.push(routeTemplate(routers.article, { aid: mail.aid }))}>{mail.content}</a>
+                            <a onClick={() => handleClickMail(mail.mid, mail.aid)}>{mail.content}</a>
                             <span>{mail.postUsername}</span>
                         </Space>
                     </p>

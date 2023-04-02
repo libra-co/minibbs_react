@@ -1,8 +1,8 @@
 /*
  * @Author: liuhongbo liuhongbo@dip-ai.com
  * @Date: 2023-03-20 09:46:22
- * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-03-20 11:25:13
+ * @LastEditors: liuhongbo 916196375@qq.com
+ * @LastEditTime: 2023-04-01 18:10:36
  * @FilePath: /minibbs_react/src/pages/Login/const.ts
  * @Description: Login const
  */
@@ -52,7 +52,7 @@ export interface UserProfileResult {
   level: number;
   identity: number;
   role: number;
-  reviews: number;
+  viewNum: number;
   expireTime?: null | string;
   gender: GenderEnum
   badge: string[];
