@@ -1,8 +1,8 @@
 /*
  * @Author: liuhongbo 916196375@qq.com
  * @Date: 2023-03-25 17:21:10
- * @LastEditors: liuhongbo 916196375@qq.com
- * @LastEditTime: 2023-03-26 16:43:31
+ * @LastEditors: liuhongbo liuhongbo@dip-ai.com
+ * @LastEditTime: 2023-04-18 17:07:07
  * @FilePath: \MINIBBS_REACT\src\pages\Article\components\CommentList\index.tsx
  * @Description: 评论列表
  */
@@ -61,9 +61,8 @@ const CommentList = ({ aid, handleClickReplyComent, loginUid }: Props, ref: Forw
         Toast.show({
           content: message,
           duration: 500,
-          afterClose: () => getCommentList(currentPage)
-
         })
+        getCommentList(currentPage)
       }
     } catch (error) {
       console.log('error', error)

@@ -11,8 +11,10 @@ import { PaginationInterface } from "@/utils/commonInterface";
 
 /**
  * @api /article/homeArticle
+ * @param isNewest 为1则按发帖时间排序
  */
 export interface ArticleHomeArticleParams extends PaginationInterface {
+  isNewest?: 0 | 1
 }
 
 /**

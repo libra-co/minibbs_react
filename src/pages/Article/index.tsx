@@ -2,7 +2,7 @@
  * @Author: liuhongbo liuhongbo@dip-ai.com
  * @Date: 2023-03-27 11:45:35
  * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-03-27 16:44:39
+ * @LastEditTime: 2023-04-18 17:05:52
  * @FilePath: /minibbs_react/src/pages/Article/index.tsx
  * @Description: ariticle
  */
@@ -92,11 +92,9 @@ const Article: FC<Props> = ({ user }) => {
             if (status === 200) {
                 Toast.show({
                     content: message,
-                    afterClose: () => {
-                        commentListRef.current?.refreshCommentList()
-                        form.resetFields()
-                    }
                 })
+                commentListRef.current?.refreshCommentList()
+                form.resetFields()
             } else {
                 Toast.show({
                     content: message,

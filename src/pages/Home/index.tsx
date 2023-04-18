@@ -27,10 +27,11 @@ const Home = (props: Props) => {
         getArticleList()
     }, [])
 
-    const getArticleList = async () => {
+    const getArticleList = async (isNewest: 0 | 1 = 0) => {
         const query = {
             pageNum: 1,
-            pageSize: 10
+            pageSize: 10,
+            isNewest,
         }
         try {
             const { status, result: { dataList } } = await articleHomeArticle(query)
@@ -62,7 +63,7 @@ const Home = (props: Props) => {
                 </Space>
             </div>
             <div className="bbs-title-bar">
-                <b>[</b><Button color='primary' fill='none' >妖水论坛</Button> <b>]</b> <Button color='primary' fill='none' >新帖</Button> - <Button onClick={() => history.push(routeTemplate(routers.blockChosen, {}))} color='primary' fill='none' >发帖</Button>
+                <b>[</b><Button color='primary' fill='none' >妖水论坛</Button> <b>]</b> <Button onClick={() => getArticleList(1)} color='primary' fill='none' >新帖</Button> - <Button onClick={() => history.push(routeTemplate(routers.blockChosen, {}))} color='primary' fill='none' >发帖</Button>
             </div>
             <div className="article-box">
                 <Space className='article-box-list' direction='vertical'>
