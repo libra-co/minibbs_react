@@ -1,13 +1,16 @@
 /*
  * @Author: liuhongbo liuhongbo@dip-ai.com
  * @Date: 2023-02-28 16:51:24
- * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-03-17 10:17:48
+ * @LastEditors: liuhongbo 916196375@qq.com
+ * @LastEditTime: 2023-03-26 17:34:24
  * @FilePath: /minibbs_react/src/utils/request.ts
  * @Description: 封装 request
  */
 
+import { Toast } from 'antd-mobile'
+import { history } from 'umi'
 import { extend, ResponseError } from 'umi-request'
+import routers, { routeTemplate } from './routers'
 import { getToken, TokenKey } from './token'
 
 
@@ -74,7 +77,6 @@ request.interceptors.request.use((url, options) => {
     if (method === 'post') {
         delete optionsInit.params
     } else if (method === 'get') {
-        console.log('optionsInit', optionsInit)
         delete optionsInit.data
     }
     return {
@@ -96,6 +98,10 @@ request.interceptors.response.use(async (response, options) => {
         // if (result && result.status === 104) {
         //     history.push(routers.changepassword)
         // }
+        if (result.statusCode === 401) {
+            Toast.show('登录过期,请重新登录!')
+            history.push(routeTemplate(routers.login, {}))
+        }
 
         // noRedirect为true时，不需要校验
         // if ((!noRedirect && result && result.status === 102) || (!noRedirect && result && result.status === 10000)) {

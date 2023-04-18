@@ -1,11 +1,4 @@
 .user-profile-page {
-    .user-profile-header {
-        padding: 10px 10px;
-        margin-top: 0;
-        width: 100%;
-        background-color: rgb(229, 243, 238);
-    }
-
     .avatar {
         margin: 10px auto;
         width: 100vmin;
@@ -35,10 +28,33 @@
         }
     }
 
-    .link-btn {
+    .friend-btn-box {
+        width: 100%;
+        margin: 0 auto;
+        --gap-horizontal: 50px;
+
+        .friend-btn {
+            width: 130px;
+        }
+    }
+
+    .pd0-10 {
         padding: 0 10px;
     }
-    .cancel-text-margin-right {
+
+    .padding-left-0 {
         padding-left: 0;
-     }
+    }
+
+    .user-active-record {
+        overflow: hidden;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .message-board {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px;
+    }
 }

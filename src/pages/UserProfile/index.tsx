@@ -2,16 +2,18 @@
  * @Author: liuhongbo 916196375@qq.com
  * @Date: 2023-03-19 19:50:51
  * @LastEditors: liuhongbo 916196375@qq.com
- * @LastEditTime: 2023-03-19 22:18:37
+ * @LastEditTime: 2023-04-01 18:11:14
  * @FilePath: \MINIBBS_REACT\src\pages\UserProfile\index.tsx
  * @Description: 用户空间
  */
+import FooterRouteBtn from '@/components/FooterRouteBtn'
 import { ComponentProps, ModelDvaState } from '@/interface'
+import routers, { routeTemplate } from '@/utils/routers'
 import { userProfile } from '@/utils/service/user'
 import { Button, Form, Image, Input, Space, Toast } from 'antd-mobile'
 import React, { useEffect, useState } from 'react'
 import { history, useParams } from 'umi'
-import { GenderEnum, genderObj, UserProfileResult } from '../Login/const'
+import { genderObj, UserProfileResult } from '../Login/const'
 import { IdentityEnum, RoleEnum } from '../UserCenter/const'
 import './index.less'
 
@@ -25,7 +27,8 @@ const UserProfile = (props: Props) => {
     // 验证查看的页面是否为登录的账户
     const [isLoginUser, setIsLoginUser] = useState<boolean>(false)
     const routerPrams = useParams<{ uid: string }>()
-    const [form] = Form.useForm<{ message: string }>()
+    const [privateMessageForm] = Form.useForm<{ privateMessage: string }>()
+    const [messageForm] = Form.useForm<{ message: string }>()
 
     useEffect(() => {
         getUserProfile()
@@ -56,53 +59,78 @@ const UserProfile = (props: Props) => {
         }
     }
 
-    const handleSendPrivateMessage = (value: { message: string }) => {
+    const handleSendPrivateMessage = (value: { privateMessage: string }) => {
         console.log('value', value)
     }
 
     return (
         <div className='user-profile-page'>
-            <p className='user-profile-header'>{userProfileInfo.username}的空间</p>
+            <p className='page-header'>{userProfileInfo.username}的空间</p>
             <Image lazy src='/404' />
-            <Form className='message-row' layout='horizontal' form={form} onFinish={handleSendPrivateMessage}>
+            <Form className='message-row' layout='horizontal' form={privateMessageForm} onFinish={handleSendPrivateMessage}>
                 <Form.Item
                     label=''
-                    name='message'
+                    name='privateMessage'
                     extra={
                         <div className='message-row-extra'>
-                            <a onClick={form.submit}>发送私信</a>
+                            <a onClick={privateMessageForm.submit}>发送私信</a>
                         </div>
                     }
                 >
                     <Input placeholder='请输入私信内容' clearable />
                 </Form.Item>
             </Form>
-            <p>
-                <Button >加为好友</Button>
-                <Button >加黑名单</Button>
-            </p>
-            <Space direction='vertical' style={{ '--gap-vertical': '1px' }}>
-                <p className='link-btn'>ID号: {userProfileInfo.uid}</p>
-                <p className='link-btn'>昵称: {userProfileInfo.username}</p>
-                <p className='link-btn'>妖精: {userProfileInfo.coin}</p>
-                <p className='link-btn'>经验: {userProfileInfo.experience}</p>
-                <p className='link-btn'>等级: {userProfileInfo.level}</p>
-                <p className='link-btn'>头衔: <span style={{ color: 'red' }}>暂时没做</span></p>
-                <p className='link-btn'>勋章: {userProfileInfo.badge}</p>
-                <p className='link-btn'>
-                    <a className='link-btn cancel-text-margin-right' >{IdentityEnum[userProfileInfo.identity]}</a>
-                    /
-                    <span className='link-btn'>{genderObj[userProfileInfo.gender]}</span>
-                    /
-                    <span className='link-btn'>{userProfileInfo.age}</span>
-                </p>
-                <p className='link-btn'>管理权限:{RoleEnum[userProfileInfo.role]}</p>
-                <p className='link-btn'>在线: <span style={{ color: 'red' }}>此处应有图标</span><span className='link-btn'>[<a >对话</a>]</span></p>
-                <p className='link-btn'>{isLoginUser ? '我的' : '他的'}: <a >详情资料</a></p>
-                <p className='link-btn'>{isLoginUser ? '我的' : '他的'}: <a >帖子({userProfileInfo.articleNum})</a> <a className='link-btn'>回复({userProfileInfo.replyNum})</a></p>
-                <p>空间人气<span style={{ color: 'red' }}>暂时没做</span>/今日<span style={{ color: 'red' }}>暂时没做</span></p>
+            <Space className='friend-btn-box' justify='center' block >
+                <Button fill='outline' className='friend-btn' color='success' >加为好友</Button>
+                <Button fill='outline' className='friend-btn' color='warning' >加黑名单</Button>
             </Space>
-            
+            <Space direction='vertical' style={{ '--gap-vertical': '1px' }}>
+                <p className='pd0-10'>ID号: {userProfileInfo.uid}</p>
+                <p className='pd0-10'>昵称: {userProfileInfo.username}</p>
+                <p className='pd0-10'>妖精: {userProfileInfo.coin}</p>
+                <p className='pd0-10'>经验: {userProfileInfo.experience}</p>
+                <p className='pd0-10'>等级: {userProfileInfo.level}</p>
+                <p className='pd0-10'>头衔: <span style={{ color: 'red' }}>暂时没做</span></p>
+                <p className='pd0-10'>勋章: {userProfileInfo.badge}</p>
+                <p className='pd0-10'>
+                    <a className='pd0-10 padding-left-0' >{IdentityEnum[userProfileInfo.identity]}</a>
+                    /
+                    <span className='pd0-10'>{genderObj[userProfileInfo.gender]}</span>
+                    /
+                    <span className='pd0-10'>{userProfileInfo.age}</span>
+                </p>
+                <p className='pd0-10'>管理权限:{RoleEnum[userProfileInfo.role]}</p>
+                <p className='pd0-10'>在线: <span style={{ color: 'red' }}>此处应有图标</span><span className='pd0-10'>[<a >对话</a>]</span></p>
+                <p className='pd0-10'>{isLoginUser ? '我的' : '他的'}: <a onClick={() => history.push(routeTemplate(routers.user_detail_profile, { uid: userProfileInfo.uid }))} >详情资料</a></p>
+                <p className='pd0-10'>{isLoginUser ? '我的' : '他的'}: <a onClick={() => history.push(routeTemplate(routers.user_article, { uid: userProfileInfo.uid }))} >帖子({userProfileInfo.articleNum})</a> <a onClick={() => history.push(routeTemplate(routers.user_reply, { uid: userProfileInfo.uid }))} className='pd0-10'>回复({userProfileInfo.replyNum})</a></p>
+                <p className='pd0-10'>空间人气<span >{userProfileInfo.viewNum}</span>/今日<span style={{ color: 'red' }}>暂时没做</span></p>
+            </Space>
+            <p className='block-header user-active-record'><span>{isLoginUser ? '我的' : '他的'}动态</span><span>更多</span></p>
+            <Space direction='vertical' style={{ '--gap-vertical': '1px' }}>
+                <p className='pd0-10'><span style={{ color: 'red' }}>这里没做完</span>分钟前回复了帖子: <a >xxxxxxxx</a></p>
+                <p className='pd0-10'><span style={{ color: 'red' }}>这里没做完</span>分钟前回复了帖子: <a >xxxxxxxx</a></p>
+                <p className='pd0-10'><span style={{ color: 'red' }}>这里没做完</span>分钟前回复了帖子: <a >xxxxxxxx</a></p>
+            </Space>
+            <p className='block-header user-active-record'>{isLoginUser ? '我的' : '他的'}的留言板</p>
+            <Form className='message-row' layout='horizontal' form={messageForm} onFinish={handleSendPrivateMessage}>
+                <Form.Item
+                    label=''
+                    name='message'
+                    initialValue='我来踩踩，记得回哦！'
+                    extra={
+                        <div className='message-row-extra'>
+                            <a onClick={messageForm.submit}>留言</a>
+                        </div>
+                    }
+                >
+                    <Input maxLength={250} placeholder='请输入留言内容' clearable />
+                </Form.Item>
+            </Form>
+            <div className="message-board">
+                <div>我来踩踩，记得回哦</div>
+                <div>05-01 09:03</div>
+            </div>
+            <FooterRouteBtn />
         </div>
     )
 }
