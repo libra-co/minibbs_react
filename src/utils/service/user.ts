@@ -2,7 +2,7 @@
 * @Author: liuhongbo liuhongbo@dip-ai.com
 * @Date: 2023-03-02 15:53:54
  * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-03-31 17:59:18
+ * @LastEditTime: 2023-04-19 13:44:00
 * @FilePath: /minibbs_react/src/utils/service/user.ts
 * @Description: user api
 */
@@ -14,6 +14,8 @@ import { BookMarkListParams, BookMarkListResult } from "@/pages/UserProfile/User
 import { MailListParams, MailListResult } from "@/pages/UserProfile/UserMail/const";
 import { UserCommentListParams, UserCommentListResult } from "@/pages/UserProfile/UserReply/const";
 import request, { IResponse } from "../request";
+import { PaginationInterface } from "../commonInterface";
+import { CoinRecordListParams, CoinRecordListResult } from "@/pages/UserProfile/CoinDetail/const";
 
 export function login(params: LoginParams): Promise<IResponse<LoginResult>> {
     return request('/login', {
@@ -114,3 +116,12 @@ export function mailRead(params: { mid: string }): Promise<IResponse> {
     })
 }
 
+/**
+ * @description 用户金币变更记录
+ */
+export function CoinRecordList(params: CoinRecordListParams): Promise<IResponse<CoinRecordListResult>> {
+    return request('/coinRecord/list', {
+        method: 'POST',
+        params: { ...params }
+    })
+}

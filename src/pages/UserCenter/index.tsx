@@ -2,7 +2,7 @@
  * @Author: liuhongbo 916196375@qq.com
  * @Date: 2023-03-09 22:26:45
  * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-03-31 18:04:51
+ * @LastEditTime: 2023-04-19 14:23:01
  * @FilePath: \MINIBBS_REACT\src\pages\UserCenter\index.tsx
  * @Description: 个人中心
  */
@@ -35,7 +35,7 @@ const UserCenter = (props: Props) => {
                     /
                     <a className='pd0-10'>转账</a>
                     /
-                    <a className='pd0-10'>明细</a>
+                    <a onClick={() => history.push(routeTemplate(routers.user_coin_record_detail, {}))} className='pd0-10'>明细</a>
                 </p>
                 <p>银行账户: <span style={{ color: 'red' }}>银行模块未实现</span><a className='pd0-10' >取款</a></p>
                 <p>我的经验:{user.experience}</p>

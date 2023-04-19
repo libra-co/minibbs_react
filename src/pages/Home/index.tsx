@@ -2,7 +2,7 @@
  * @Author: liuhongbo 916196375@qq.com
  * @Date: 2023-03-07 22:58:20
  * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-03-31 15:54:22
+ * @LastEditTime: 2023-04-19 10:02:36
  * @FilePath: \MINIBBS_REACT\src\pages\Home\index.tsx
  * @Description: home页
  */
@@ -10,7 +10,7 @@ import { ArticleHomeArticleListItem } from '@/components/MoreArticleList/const'
 import { ComponentProps, ModelDvaState } from '@/interface'
 import routers, { routeTemplate } from '@/utils/routers'
 import { articleHomeArticle } from '@/utils/service/article'
-import { Button, Image, Space } from 'antd-mobile'
+import { Button, Image, NoticeBar, Space } from 'antd-mobile'
 import React, { useEffect, useState } from 'react'
 import { connect, history } from 'umi'
 import { adList, quickActionList } from './const'
@@ -45,7 +45,8 @@ const Home = (props: Props) => {
 
     return (
         <div className='home-page'>
-            <p className="title-bar">
+            <NoticeBar content='妖水网正在内测中，部分功能未开发完毕，尽请期待...' color='alert' closeable />
+            <p className="title-bar page-header">
                 <Button onClick={() => history.push(routers.user_center)} size='small' color='primary' fill='none'>我的地盘</Button>
                 <Button onClick={() => history.push(routeTemplate(routers.user_profile, { uid: user.uid }))} size='small' color='primary' fill='none'>空间</Button>
                 <Button onClick={() => history.push(routeTemplate(routers.user_article, { uid: user.uid }))} size='small' color='primary' fill='none'>帖子</Button>
@@ -54,7 +55,7 @@ const Home = (props: Props) => {
             <Image className='logo' src={demoSrc} />
             <div className='quick-action-box'>
                 <Space wrap>
-                    {quickActionList.map(item => <Button onClick={() => history.push(item.route)} size='small' color='primary' fill='none'>{item.name}</Button>)}
+                    {quickActionList.map(item => <Button onClick={() => history.push(item.route)} size='small' color='white' fill='none'>{item.name}</Button>)}
                 </Space>
             </div>
             <div className="ad-bar-bpx">

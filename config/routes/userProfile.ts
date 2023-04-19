@@ -2,7 +2,7 @@
  * @Author: liuhongbo liuhongbo@dip-ai.com
  * @Date: 2023-03-20 09:46:22
  * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-03-31 15:47:20
+ * @LastEditTime: 2023-04-19 13:57:18
  * @FilePath: /minibbs_react/config/routes/userProfile.ts
  * @Description: 用户空间
  */
@@ -38,5 +38,10 @@ export default [
         path: routers.user_mail,
         name: 'User Mail',
         component: '@/pages/UserProfile/UserMail',
+    },
+    {
+        path: routers.user_coin_record_detail,
+        name: 'User Coin Record Detail',
+        component: '@/pages/UserProfile/CoinDetail',
     },
 ]
