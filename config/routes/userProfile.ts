@@ -20,11 +20,6 @@ export default [
         component: '@/pages/UserProfile/UerDetailProfile',
     },
     {
-        path: routers.user_article,
-        name: 'User Article',
-        component: '@/pages/UserProfile/UserArticle',
-    },
-    {
         path: routers.user_reply,
         name: 'User Reply',
         component: '@/pages/UserProfile/UserReply',

@@ -2,7 +2,7 @@
  * @Author: liuhongbo liuhongbo@dip-ai.com
  * @Date: 2023-03-27 11:45:35
  * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-04-18 17:05:52
+ * @LastEditTime: 2023-04-21 15:10:26
  * @FilePath: /minibbs_react/src/pages/Article/index.tsx
  * @Description: ariticle
  */
@@ -16,8 +16,9 @@ import CommentList from './components/CommentList'
 import FooterRouteBtn from '@/components/FooterRouteBtn'
 import { ComponentProps, ModelDvaState } from '@/interface'
 import MoreArticleList from '@/components/MoreArticleList'
-import './index.less'
 import routers, { routeTemplate } from '@/utils/routers'
+import { IsNewestEnum } from '@/components/MoreArticleList/const'
+import './index.less'
 
 type Props = PageStateProps & ComponentProps & {}
 
@@ -28,6 +29,7 @@ const Article: FC<Props> = ({ user }) => {
     const [replyCommentInfo, setReplyCommentInfo] = useState<ReplyCommentInfo>({} as ReplyCommentInfo)
     const [form] = Form.useForm<{}>()
     const commentListRef = useRef<{ refreshCommentList: () => void }>()
+    const [isNewestCommentArtilce, setIsNewestCommentArtilce] = useState<IsNewestEnum>(IsNewestEnum.RecentActived)
 
     useEffect(() => {
         getArticleDetail()
@@ -60,8 +62,10 @@ const Article: FC<Props> = ({ user }) => {
     const handleLikeArticle = async () => {
         try {
             const { message, status } = await articleLike({ aid: routerParams.aid! })
-            Toast.show(message)
-            getArticleDetail()
+            if (status === 200) {
+                Toast.show(message)
+                getArticleDetail()
+            }
         } catch (error) {
             console.log('error', error)
         }
@@ -71,8 +75,10 @@ const Article: FC<Props> = ({ user }) => {
     const handleDislikeArticle = async () => {
         try {
             const { message, status } = await articledisLike({ aid: routerParams.aid! })
-            Toast.show(message)
-            getArticleDetail()
+            if (status === 200) {
+                Toast.show(message)
+                getArticleDetail()
+            }
         } catch (error) {
             console.log('error', error)
         }
@@ -80,7 +86,6 @@ const Article: FC<Props> = ({ user }) => {
 
 
     const handleSubmitComment = async (value: ArticleForms) => {
-        console.log('commentListRef', commentListRef)
         const query: CommentAddParams = {
             ...value,
             ...replyCommentInfo,
@@ -103,11 +108,9 @@ const Article: FC<Props> = ({ user }) => {
                 })
             }
         } catch (error) {
-            console.log('commentListRef', commentListRef)
             console.log('error', error)
         }
     }
-    console.log('commentListRef', commentListRef)
 
     return (
 
@@ -121,7 +124,7 @@ const Article: FC<Props> = ({ user }) => {
             </Space>
 
             <Divider />
-            <div className='padding-0-8'>
+            <div className='padding-0-8 article-content'>
                 {
                     articleDetailInfo?.content
                 }
@@ -154,13 +157,13 @@ const Article: FC<Props> = ({ user }) => {
             <CommentList aid={routerParams.aid!} ref={commentListRef} loginUid={user.uid} handleClickReplyComent={setReplyCommentInfo} />
             <p className='block-header' >
                 <Space>
-                    [<a>发表主题</a>]
-                    <a>最新</a>
+                    [<a onClick={() => history.push(routeTemplate(routers.blockChosen, {}))}>发表主题</a>]
+                    <a onClick={() => setIsNewestCommentArtilce(IsNewestEnum.Newest)}>最新</a>
                     <span>-</span>
                     <a>搜索</a>
                 </Space>
             </p>
-            <MoreArticleList />
+            <MoreArticleList isNewest={isNewestCommentArtilce} />
             <FooterRouteBtn />
         </div>
     )

@@ -1,8 +1,8 @@
 /*
  * @Author: liuhongbo 916196375@qq.com
  * @Date: 2023-03-19 19:50:51
- * @LastEditors: liuhongbo 916196375@qq.com
- * @LastEditTime: 2023-04-01 18:11:14
+ * @LastEditors: liuhongbo liuhongbo@dip-ai.com
+ * @LastEditTime: 2023-04-21 16:20:33
  * @FilePath: \MINIBBS_REACT\src\pages\UserProfile\index.tsx
  * @Description: 用户空间
  */
@@ -102,7 +102,7 @@ const UserProfile = (props: Props) => {
                 <p className='pd0-10'>管理权限:{RoleEnum[userProfileInfo.role]}</p>
                 <p className='pd0-10'>在线: <span style={{ color: 'red' }}>此处应有图标</span><span className='pd0-10'>[<a >对话</a>]</span></p>
                 <p className='pd0-10'>{isLoginUser ? '我的' : '他的'}: <a onClick={() => history.push(routeTemplate(routers.user_detail_profile, { uid: userProfileInfo.uid }))} >详情资料</a></p>
-                <p className='pd0-10'>{isLoginUser ? '我的' : '他的'}: <a onClick={() => history.push(routeTemplate(routers.user_article, { uid: userProfileInfo.uid }))} >帖子({userProfileInfo.articleNum})</a> <a onClick={() => history.push(routeTemplate(routers.user_reply, { uid: userProfileInfo.uid }))} className='pd0-10'>回复({userProfileInfo.replyNum})</a></p>
+                <p className='pd0-10'>{isLoginUser ? '我的' : '他的'}: <a onClick={() => history.push(routeTemplate(routers.userArticleList, { uid: userProfileInfo.uid }))} >帖子({userProfileInfo.articleNum})</a> <a onClick={() => history.push(routeTemplate(routers.user_reply, { uid: userProfileInfo.uid }))} className='pd0-10'>回复({userProfileInfo.replyNum})</a></p>
                 <p className='pd0-10'>空间人气<span >{userProfileInfo.viewNum}</span>/今日<span style={{ color: 'red' }}>暂时没做</span></p>
             </Space>
             <p className='block-header user-active-record'><span>{isLoginUser ? '我的' : '他的'}动态</span><span>更多</span></p>

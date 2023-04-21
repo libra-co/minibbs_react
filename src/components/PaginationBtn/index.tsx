@@ -2,7 +2,7 @@
  * @Author: liuhongbo liuhongbo@dip-ai.com
  * @Date: 2023-03-20 13:54:03
  * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-03-23 14:07:50
+ * @LastEditTime: 2023-04-20 13:52:04
  * @FilePath: /minibbs_react/src/components/PaginationBtn/index.tsx
  * @Description: 返回上级返回首页的按钮
  */
@@ -16,8 +16,8 @@ import './index.less'
 interface Props {
     onNextPage: () => void
     onLastPage: () => void
-    isDisableNextPageBtn?: boolean
-    isDisableLastPageBtn?: boolean
+    isDisableNextPageBtn: boolean
+    isDisableLastPageBtn: boolean
     quickJump?: {
         currentPage: number,
         totalPage: number,
@@ -39,14 +39,14 @@ const PaginationBtn = (props: Props) => {
     return (
         <div className='footer-btn-page'>
             <Space className='footer-btn-box' direction='horizontal' justify='center' block >
-                <Button disabled={isDisableNextPageBtn} className='next-page-btn page-btn' block fill='outline' onClick={onNextPage} shape='default' color='primary'>
-                    下一页
-                </Button>
                 <Button disabled={isDisableLastPageBtn} className='last-page-btn page-btn' block fill='outline' onClick={onLastPage} shape='default' color='primary'>
                     上一页
                 </Button>
+                <Button disabled={isDisableNextPageBtn} className='next-page-btn page-btn' block fill='outline' onClick={onNextPage} shape='default' color='primary'>
+                    下一页
+                </Button>
             </Space>
-            {quickJump && <div>
+            {quickJump && quickJump.totalDataNum > 0 && <div>
                 <Form
                     layout='horizontal'
                     style={{ '--prefix-width': 'auto' }}
@@ -68,7 +68,7 @@ const PaginationBtn = (props: Props) => {
                             () => ({
                                 validator(rule, value) {
                                     if (value && value > quickJump.totalPage) {
-                                        return Promise.reject(`最大页数为${quickJump.totalDataNum}}`)
+                                        return Promise.reject(`最大页数为${quickJump.totalPage}}`)
                                     }
                                     if (value && value < 1) {
                                         return Promise.reject('最小页数为1')

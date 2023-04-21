@@ -2,7 +2,7 @@
  * @Author: liuhongbo 916196375@qq.com
  * @Date: 2023-02-26 19:58:22
  * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-03-21 16:47:56
+ * @LastEditTime: 2023-04-21 11:31:35
  * @FilePath: \minibbsReact\config\config.ts
  * @Description: 配置文件，与.umirc.ts二选一
  */
@@ -36,4 +36,5 @@ export default defineConfig({
   },
   base: '/',
   publicPath: '/',
+  extraPostCSSPlugins: [require('tailwindcss'), require('autoprefixer')],
 });

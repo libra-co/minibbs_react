@@ -2,7 +2,7 @@
  * @Author: liuhongbo liuhongbo@dip-ai.com
  * @Date: 2023-03-20 15:44:12
  * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-03-24 17:18:36
+ * @LastEditTime: 2023-04-21 16:25:47
  * @FilePath: /minibbs_react/src/pages/UserProfile/UserArticle/index.tsx
  * @Description: Usr Article
  */
@@ -10,11 +10,11 @@ import { history, useParams } from 'umi'
 import { userArticleList } from '@/utils/service/user'
 import React, { useEffect, useState } from 'react'
 import { List } from 'antd-mobile'
-import { userArticleItem } from './const'
+import { UserArticleListParams, userArticleItem } from './const'
 import FooterRouteBtn from '@/components/FooterRouteBtn'
 import PaginationBtn from '@/components/PaginationBtn'
-import './index.less'
 import routers, { routeTemplate } from '@/utils/routers'
+import './index.less'
 
 const UserArticle = () => {
     const [articleList, setArticleList] = useState<userArticleItem[]>([])
@@ -22,17 +22,19 @@ const UserArticle = () => {
     const [isShowPaginationBtn, setIsShowPaginationBtn] = useState<boolean>(false)
     const [totalPage, setTotalPage] = useState<number>(0)
     const [totalDataNum, setTotalDataNum] = useState<number>(0)
-    const routerParams = useParams<{ uid: string }>()
+    const routerParams = useParams<{ uid?: string, keyword?: string }>()
+
     useEffect(() => {
         getUserArticleList()
     }, [])
-    history
+
     const getUserArticleList = async (getPageNum?: number) => {
-        const query = {
-            uid: +routerParams.uid!,
+        const query: any = {
+            ...routerParams,
             pageNum: getPageNum || currentPage,
             pageSize: 10,
         }
+        routerParams.uid && (query.uid = +routerParams.uid)
         try {
             const { result: { dataList, total, pageNum }, status } = await userArticleList(query)
             if (status === 200) {
@@ -51,6 +53,7 @@ const UserArticle = () => {
     const handleClickNextPage = () => {
         getUserArticleList(currentPage + 1)
     }
+
     // 点击上一页
     const handleClickLastPage = () => {
         getUserArticleList(currentPage - 1)
@@ -62,7 +65,6 @@ const UserArticle = () => {
             <List>
                 {articleList.map((article, index) => (
                     <List.Item
-
                         key={article.aid}
                         description={<span>{article.userName} / {article.replyNum} 回 / {article.viewNum} 阅</span>}
                     >

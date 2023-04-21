@@ -9,6 +9,7 @@
 
 import routers from '../src/utils/routers'
 import article from './routes/article'
+import articleList from './routes/articleList'
 import userCenter from './routes/userCenter'
 import userProfile from './routes/userProfile'
 
@@ -20,6 +21,7 @@ const layoutsRoutes = [
     ...userCenter,
     ...userProfile,
     ...article,
+    ...articleList,
 ]
 
 export default [

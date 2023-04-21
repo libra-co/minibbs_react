@@ -1,6 +1,6 @@
 
 import { PaginationInterface } from "@/utils/commonInterface"
-import { CoinOperationType } from "../const"
+import { CoinOperationType, coinOperationTypeCn } from "../const"
 import { PickerColumn, PickerValue } from "antd-mobile/es/components/picker-view"
 
 export interface CoinRecordListParams extends PaginationInterface {
@@ -8,6 +8,7 @@ export interface CoinRecordListParams extends PaginationInterface {
     operatorUid?: number
     year?: string
     month?: string
+    day?: string
     operationType?: CoinOperationType
     keyword?: string
 }
@@ -30,29 +31,26 @@ export interface CoinRecordListItem {
     operatorUsername: string;
 }
 
-export const datepickerData: PickerColumn[] = [[
-    {
+export const datepickerData: () => PickerColumn[] = () => {
+    const data = [{
         label: '未选择',
-        value: '',
-    },
-    {
-        label: '操作名称',
-        value: '1',
-    },
-    {
-        label: '操作人',
-        value: '2',
-    },
-    {
-        label: '操作昵称',
-        value: '3',
-    },
-]]
+        value: ''
+    }]
+    for (const key in coinOperationTypeCn) {
+        if (Object.prototype.hasOwnProperty.call(coinOperationTypeCn, key)) {
+            data.push({
+                label: coinOperationTypeCn[key as unknown as CoinOperationType],
+                value: key
+            })
+        }
+    }
+    return [data]
+}
 
 export interface CoinDetailTable {
-    year?: number
-    month?: number
-    day?: number
-    type?: number[]
+    year?: string
+    month?: string
+    day?: string
+    operationType?: [string]
     keyword?: string
 }

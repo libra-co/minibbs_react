@@ -2,7 +2,7 @@
  * @Author: liuhongbo 916196375@qq.com
  * @Date: 2023-03-07 22:58:20
  * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-04-19 10:02:36
+ * @LastEditTime: 2023-04-21 16:14:54
  * @FilePath: \MINIBBS_REACT\src\pages\Home\index.tsx
  * @Description: home页
  */
@@ -10,7 +10,7 @@ import { ArticleHomeArticleListItem } from '@/components/MoreArticleList/const'
 import { ComponentProps, ModelDvaState } from '@/interface'
 import routers, { routeTemplate } from '@/utils/routers'
 import { articleHomeArticle } from '@/utils/service/article'
-import { Button, Image, NoticeBar, Space } from 'antd-mobile'
+import { Button, Form, Image, Input, NoticeBar, Space } from 'antd-mobile'
 import React, { useEffect, useState } from 'react'
 import { connect, history } from 'umi'
 import { adList, quickActionList } from './const'
@@ -49,7 +49,7 @@ const Home = (props: Props) => {
             <p className="title-bar page-header">
                 <Button onClick={() => history.push(routers.user_center)} size='small' color='primary' fill='none'>我的地盘</Button>
                 <Button onClick={() => history.push(routeTemplate(routers.user_profile, { uid: user.uid }))} size='small' color='primary' fill='none'>空间</Button>
-                <Button onClick={() => history.push(routeTemplate(routers.user_article, { uid: user.uid }))} size='small' color='primary' fill='none'>帖子</Button>
+                <Button onClick={() => history.push(routeTemplate(routers.userArticleList, { uid: user.uid }))} size='small' color='primary' fill='none'>帖子</Button>
                 <Button onClick={() => history.push(routeTemplate(routers.user_mail, {}))} size='small' color='primary' fill='none'>信箱</Button>
             </p>
             <Image className='logo' src={demoSrc} />
@@ -63,7 +63,7 @@ const Home = (props: Props) => {
                     {adList.map(item => <Button onClick={() => window.open(item.link)} color='primary' fill='none'>{item.content}</Button>)}
                 </Space>
             </div>
-            <div className="bbs-title-bar">
+            <div className="bbs-title-bar block-header">
                 <b>[</b><Button color='primary' fill='none' >妖水论坛</Button> <b>]</b> <Button onClick={() => getArticleList(1)} color='primary' fill='none' >新帖</Button> - <Button onClick={() => history.push(routeTemplate(routers.blockChosen, {}))} color='primary' fill='none' >发帖</Button>
             </div>
             <div className="article-box">
@@ -71,6 +71,18 @@ const Home = (props: Props) => {
                     {articleList.map((item, index) => <Button onClick={() => history.push(routeTemplate(routers.article, { aid: item.aid }))} color='primary' fill='none'>{`${index + 1}. ${item.title}`}</Button>)}
                 </Space>
             </div>
+            <Form layout='horizontal'>
+                <Form.Item
+                    label='搜索帖子'
+                    extra={
+                        <div className='search-article-ipt'>
+                            <a>搜索</a>
+                        </div>
+                    }
+                >
+                    <Input placeholder='请输入文章标题' clearable />
+                </Form.Item>
+            </Form>
         </div >
     )
 }
