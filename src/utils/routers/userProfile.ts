@@ -2,7 +2,7 @@
  * @Author: liuhongbo 916196375@qq.com
  * @Date: 2023-03-19 19:51:46
  * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-03-31 15:46:41
+ * @LastEditTime: 2023-04-21 15:34:49
  * @FilePath: \MINIBBS_REACT\src\utils\routers\userProfile.ts
  * @Description: 用户空间
  */
@@ -20,7 +20,7 @@ export default [
             },
             {
                 name: 'user_article',
-                value: '/user_article/:uid',
+                value: '/user_article',
             },
             {
                 name: 'user_reply',
@@ -34,6 +34,10 @@ export default [
                 name: 'user_mail',
                 value: '/user_mail',
             },
+            {
+                name: 'user_coin_record_detail',
+                value: '/user_coin_record_detail',
+            },
         ]
     }
 ]
@@ -45,4 +49,5 @@ export interface UserProfile {
     user_reply: string
     user_bookmark: string
     user_mail: string
+    user_coin_record_detail: string
 }

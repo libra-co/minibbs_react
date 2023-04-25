@@ -2,18 +2,20 @@
 * @Author: liuhongbo liuhongbo@dip-ai.com
 * @Date: 2023-03-02 15:53:54
  * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-03-31 17:59:18
+ * @LastEditTime: 2023-04-23 11:25:23
 * @FilePath: /minibbs_react/src/utils/service/user.ts
 * @Description: user api
 */
 
 import { LoginParams, LoginResult, UserProfileResult } from "@/pages/Login/const";
 import { UserDetailProfileInterface } from "@/pages/UserProfile/UerDetailProfile/const";
-import { UserArticleListParams, UserArticleListResult } from "@/pages/UserProfile/UserArticle/const";
+import { UserArticleListParams, UserArticleListResult } from "@/pages/ArticleList/const";
 import { BookMarkListParams, BookMarkListResult } from "@/pages/UserProfile/UserBooked/const";
 import { MailListParams, MailListResult } from "@/pages/UserProfile/UserMail/const";
 import { UserCommentListParams, UserCommentListResult } from "@/pages/UserProfile/UserReply/const";
 import request, { IResponse } from "../request";
+import { PaginationInterface } from "../commonInterface";
+import { CoinRecordListParams, CoinRecordListResult } from "@/pages/UserProfile/CoinDetail/const";
 
 export function login(params: LoginParams): Promise<IResponse<LoginResult>> {
     return request('/login', {
@@ -47,8 +49,8 @@ export function userDetailProfile(params: { uid?: number }): Promise<IResponse<U
 /**
  * @description 查询用户发表的文章
  */
-export function userArticleList(params: UserArticleListParams): Promise<IResponse<UserArticleListResult>> {
-    return request('/article/userArticleList', {
+export function articleList(params: UserArticleListParams): Promise<IResponse<UserArticleListResult>> {
+    return request('/article/list', {
         method: 'POST',
         params: { ...params }
     })
@@ -114,3 +116,12 @@ export function mailRead(params: { mid: string }): Promise<IResponse> {
     })
 }
 
+/**
+ * @description 用户金币变更记录
+ */
+export function coinRecordList(params: CoinRecordListParams): Promise<IResponse<CoinRecordListResult>> {
+    return request('/coinRecord/list', {
+        method: 'POST',
+        params: { ...params }
+    })
+}

@@ -2,12 +2,14 @@
  * @Author: liuhongbo liuhongbo@dip-ai.com
  * @Date: 2023-02-27 20:47:43
  * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-03-24 17:12:04
+ * @LastEditTime: 2023-04-24 16:11:10
  * @FilePath: /minibbs_react/src/utils/routers.ts
  * @Description: routers
  */
 
 import article, { ArticleRouters } from "./routers/article"
+import articleList, { ArticleListRouters } from "./routers/articleList"
+import blockPage, { BlockPageRouters } from "./routers/blockPage"
 import userCenter, { UserCenterRouters } from "./routers/userCenter"
 import userProfile, { UserProfile } from "./routers/userProfile"
 
@@ -50,6 +52,8 @@ const url = (url: string, prefix: string = '') => {
 export const userPrefix = '/user_center' // 我的地盘
 export const userProfilePrefix = '/user_profile' // 用户空间
 export const articlePrefix = '/article' // 用户空间
+export const articleListPrefix = '/article_list' // 用户空间
+export const bbsBlockPrefix = '/block_Page' // 论坛文章板块
 
 const addPrefix = <T>(router: Router[], prefix: string = ''): T => {
     const routerWithPrefix: Record<string, string> = {}
@@ -61,7 +65,7 @@ const addPrefix = <T>(router: Router[], prefix: string = ''): T => {
     return routerWithPrefix as T
 }
 
-interface Routers extends UserCenterRouters, UserProfile, ArticleRouters {
+interface Routers extends UserCenterRouters, UserProfile, ArticleRouters, ArticleListRouters,BlockPageRouters {
     login: string
     home: string
 
@@ -72,7 +76,9 @@ const routers: Routers = {
     home: url('/home'),
     ...addPrefix<UserCenterRouters>(userCenter, userPrefix),
     ...addPrefix<UserProfile>(userProfile, userProfilePrefix),
-    ...addPrefix<ArticleRouters>(article, articlePrefix)
+    ...addPrefix<ArticleRouters>(article, articlePrefix),
+    ...addPrefix<ArticleListRouters>(articleList, articleListPrefix),
+    ...addPrefix<BlockPageRouters>(blockPage, bbsBlockPrefix),
 }
 
 export default routers

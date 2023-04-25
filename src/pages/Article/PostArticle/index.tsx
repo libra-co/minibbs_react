@@ -2,7 +2,7 @@
  * @Author: liuhongbo liuhongbo@dip-ai.com
  * @Date: 2023-03-27 17:53:42
  * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-03-28 11:26:28
+ * @LastEditTime: 2023-04-25 16:10:32
  * @FilePath: /minibbs_react/src/pages/Article/PostArticle/index.tsx
  * @Description: PostArticle
  */
@@ -26,7 +26,7 @@ const PostArticle = () => {
     const handleClickSubmit = async (value: ArticlePostForm) => {
         const query = {
             ...value,
-            bid: routeParams.blid!
+            blid: routeParams.blid!
         }
         const { result, message, status } = await articlePost(query)
         if (status === 200) {
