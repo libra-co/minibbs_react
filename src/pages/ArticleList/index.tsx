@@ -2,27 +2,27 @@
  * @Author: liuhongbo liuhongbo@dip-ai.com
  * @Date: 2023-03-20 15:44:12
  * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-04-21 16:25:47
+ * @LastEditTime: 2023-04-25 16:01:43
  * @FilePath: /minibbs_react/src/pages/UserProfile/UserArticle/index.tsx
  * @Description: Usr Article
  */
 import { history, useParams } from 'umi'
-import { userArticleList } from '@/utils/service/user'
+import { articleList } from '@/utils/service/user'
 import React, { useEffect, useState } from 'react'
-import { List } from 'antd-mobile'
-import { UserArticleListParams, userArticleItem } from './const'
+import { List, ErrorBlock } from 'antd-mobile'
+import { userArticleItem } from './const'
 import FooterRouteBtn from '@/components/FooterRouteBtn'
 import PaginationBtn from '@/components/PaginationBtn'
 import routers, { routeTemplate } from '@/utils/routers'
 import './index.less'
 
 const UserArticle = () => {
-    const [articleList, setArticleList] = useState<userArticleItem[]>([])
+    const [articleListArr, setArticleListArr] = useState<userArticleItem[]>([])
     const [currentPage, setCurrentPage] = useState<number>(1)
-    const [isShowPaginationBtn, setIsShowPaginationBtn] = useState<boolean>(false)
     const [totalPage, setTotalPage] = useState<number>(0)
     const [totalDataNum, setTotalDataNum] = useState<number>(0)
-    const routerParams = useParams<{ uid?: string, keyword?: string }>()
+    const routerParams = useParams<{ uid?: string, keyword?: string, blid?: string }>()
+    console.log('routerParams', routerParams)
 
     useEffect(() => {
         getUserArticleList()
@@ -36,12 +36,12 @@ const UserArticle = () => {
         }
         routerParams.uid && (query.uid = +routerParams.uid)
         try {
-            const { result: { dataList, total, pageNum }, status } = await userArticleList(query)
+            const { result: { dataList, total, pageNum }, status } = await articleList(query)
             if (status === 200) {
-                setArticleList(dataList)
+                setArticleListArr(dataList)
                 setCurrentPage(pageNum)
                 setTotalPage(Math.ceil(total / 10))
-                setIsShowPaginationBtn(total / 10 > 1)
+                // setIsShowPaginationBtn(total / 10 > 1)
                 setTotalDataNum(total)
             }
         } catch (error) {
@@ -63,7 +63,7 @@ const UserArticle = () => {
         <div className='user-article-page'>
             <p className='page-header'>帖子列表</p>
             <List>
-                {articleList.map((article, index) => (
+                {articleListArr.map((article, index) => (
                     <List.Item
                         key={article.aid}
                         description={<span>{article.userName} / {article.replyNum} 回 / {article.viewNum} 阅</span>}
@@ -72,13 +72,14 @@ const UserArticle = () => {
                     </List.Item>
                 ))}
             </List>
-            {isShowPaginationBtn && <PaginationBtn
+            {totalDataNum !== 0 && <PaginationBtn
                 onNextPage={handleClickNextPage}
                 onLastPage={handleClickLastPage}
                 isDisableLastPageBtn={currentPage - 1 < 1}
                 isDisableNextPageBtn={currentPage + 1 > totalPage}
                 quickJump={{ currentPage, totalPage, totalDataNum, handleClickJumpPage: getUserArticleList }}
             />}
+            {totalDataNum === 0 && <ErrorBlock status='empty' />}
             <FooterRouteBtn />
         </div>
     )

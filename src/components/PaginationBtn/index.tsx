@@ -32,7 +32,6 @@ const PaginationBtn = (props: Props) => {
 
     // 点击跳转的回调
     const handleClickJump = (value: JumpPageForm) => {
-        console.log('value', value)
         quickJump?.handleClickJumpPage(+value.jumpPage)
     }
 

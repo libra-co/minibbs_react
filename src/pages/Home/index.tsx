@@ -2,7 +2,7 @@
  * @Author: liuhongbo 916196375@qq.com
  * @Date: 2023-03-07 22:58:20
  * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-04-21 16:14:54
+ * @LastEditTime: 2023-04-25 15:48:00
  * @FilePath: \MINIBBS_REACT\src\pages\Home\index.tsx
  * @Description: home页
  */
@@ -13,7 +13,7 @@ import { articleHomeArticle } from '@/utils/service/article'
 import { Button, Form, Image, Input, NoticeBar, Space } from 'antd-mobile'
 import React, { useEffect, useState } from 'react'
 import { connect, history } from 'umi'
-import { adList, quickActionList } from './const'
+import { SearchArticleForm, adList, quickActionList } from './const'
 import './index.less'
 
 type Props = PageStateToProps & ComponentProps & {}
@@ -22,7 +22,7 @@ const Home = (props: Props) => {
     const { user } = props
     const [articleList, setarticleList] = useState<ArticleHomeArticleListItem[]>([])
     const demoSrc = 'https://images.unsplash.com/photo-1567945716310-4745a6b7844b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=60'
-
+    const [form] = Form.useForm<SearchArticleForm>()
     useEffect(() => {
         getArticleList()
     }, [])
@@ -41,6 +41,11 @@ const Home = (props: Props) => {
         } catch (error) {
             console.log('error', error)
         }
+    }
+
+    const handleSearchArticleFinish = (value: SearchArticleForm) => {
+        console.log('value in home', routeTemplate(routers.searchArticle, { ...value }))
+        history.push(routeTemplate(routers.searchArticle, { ...value }))
     }
 
     return (
@@ -64,19 +69,20 @@ const Home = (props: Props) => {
                 </Space>
             </div>
             <div className="bbs-title-bar block-header">
-                <b>[</b><Button color='primary' fill='none' >妖水论坛</Button> <b>]</b> <Button onClick={() => getArticleList(1)} color='primary' fill='none' >新帖</Button> - <Button onClick={() => history.push(routeTemplate(routers.blockChosen, {}))} color='primary' fill='none' >发帖</Button>
+                <b>[</b><Button onClick={() => history.push(routeTemplate(routers.blockPage, {}))} color='primary' fill='none' >妖水论坛</Button> <b>]</b> <Button onClick={() => getArticleList(1)} color='primary' fill='none' >新帖</Button> - <Button onClick={() => history.push(routeTemplate(routers.blockChosen, {}))} color='primary' fill='none' >发帖</Button>
             </div>
             <div className="article-box">
                 <Space className='article-box-list' direction='vertical'>
-                    {articleList.map((item, index) => <Button onClick={() => history.push(routeTemplate(routers.article, { aid: item.aid }))} color='primary' fill='none'>{`${index + 1}. ${item.title}`}</Button>)}
+                    {articleList.map((item, index) => <Button key={item.aid} onClick={() => history.push(routeTemplate(routers.article, { aid: item.aid }))} color='primary' fill='none'>{`${index + 1}. ${item.title}`}</Button>)}
                 </Space>
             </div>
-            <Form layout='horizontal'>
+            <Form layout='horizontal' form={form} onFinish={handleSearchArticleFinish}>
                 <Form.Item
                     label='搜索帖子'
+                    name='keyword'
                     extra={
                         <div className='search-article-ipt'>
-                            <a>搜索</a>
+                            <a onClick={form.submit} >搜索</a>
                         </div>
                     }
                 >

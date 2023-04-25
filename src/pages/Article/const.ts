@@ -28,7 +28,7 @@ export interface ArticleDetailResult {
     likeNum: number;
     dislikeNum: number;
     viewNum: number;
-    bid: string;
+    blid: string;
     activeTime: string;
     isAttachment: 0 | 1;
     username: string

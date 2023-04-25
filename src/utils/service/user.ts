@@ -2,7 +2,7 @@
 * @Author: liuhongbo liuhongbo@dip-ai.com
 * @Date: 2023-03-02 15:53:54
  * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-04-20 11:13:38
+ * @LastEditTime: 2023-04-23 11:25:23
 * @FilePath: /minibbs_react/src/utils/service/user.ts
 * @Description: user api
 */
@@ -49,8 +49,8 @@ export function userDetailProfile(params: { uid?: number }): Promise<IResponse<U
 /**
  * @description 查询用户发表的文章
  */
-export function userArticleList(params: UserArticleListParams): Promise<IResponse<UserArticleListResult>> {
-    return request('/article/userArticleList', {
+export function articleList(params: UserArticleListParams): Promise<IResponse<UserArticleListResult>> {
+    return request('/article/list', {
         method: 'POST',
         params: { ...params }
     })

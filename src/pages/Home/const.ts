@@ -1,8 +1,8 @@
 /*
  * @Author: liuhongbo 916196375@qq.com
  * @Date: 2023-03-07 22:58:27
- * @LastEditors: liuhongbo 916196375@qq.com
- * @LastEditTime: 2023-03-07 23:24:00
+ * @LastEditors: liuhongbo liuhongbo@dip-ai.com
+ * @LastEditTime: 2023-04-23 10:23:43
  * @FilePath: \MINIBBS_REACT\src\pages\Home\const.ts
  * @Description: home const
  */
@@ -94,3 +94,7 @@ export const adList = [
         "link": ""
     }
 ]
+
+export interface SearchArticleForm {
+    keyword: string
+}
