@@ -2,16 +2,16 @@
  * @Author: liuhongbo 916196375@qq.com
  * @Date: 2023-03-25 17:21:10
  * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-04-18 17:07:07
+ * @LastEditTime: 2023-04-26 16:13:09
  * @FilePath: \MINIBBS_REACT\src\pages\Article\components\CommentList\index.tsx
  * @Description: 评论列表
  */
 
-import MoreArticleList from '@/components/MoreArticleList'
+
 import PaginationBtn from '@/components/PaginationBtn'
 import routers, { routeTemplate } from '@/utils/routers'
 import { commentDelete, commentList } from '@/utils/service/article'
-import { List, Space, Toast } from 'antd-mobile'
+import { List, Toast } from 'antd-mobile'
 import React, { ForwardedRef, forwardRef, useEffect, useImperativeHandle, useState } from 'react'
 import { history } from 'umi'
 import { ReplyCommentInfo } from '../../const'
@@ -30,7 +30,7 @@ const CommentList = ({ aid, handleClickReplyComent, loginUid }: Props, ref: Forw
   const [totalNum, setTotalNum] = useState<number>(0)
   useEffect(() => {
     getCommentList()
-  }, [])
+  }, [aid])
 
   // 获取评论列表
   const getCommentList = async (currentPageNum?: number) => {

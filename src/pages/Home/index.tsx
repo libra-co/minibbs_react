@@ -2,7 +2,7 @@
  * @Author: liuhongbo 916196375@qq.com
  * @Date: 2023-03-07 22:58:20
  * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-04-25 15:48:00
+ * @LastEditTime: 2023-04-26 15:50:48
  * @FilePath: \MINIBBS_REACT\src\pages\Home\index.tsx
  * @Description: home页
  */
@@ -60,7 +60,7 @@ const Home = (props: Props) => {
             <Image className='logo' src={demoSrc} />
             <div className='quick-action-box'>
                 <Space wrap>
-                    {quickActionList.map(item => <Button onClick={() => history.push(item.route)} size='small' color='white' fill='none'>{item.name}</Button>)}
+                    {quickActionList.map(item => <Button key={item.name} onClick={() => history.push(item.route)} size='small' color='white' fill='none'>{item.name}</Button>)}
                 </Space>
             </div>
             <div className="ad-bar-bpx">

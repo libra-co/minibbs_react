@@ -2,13 +2,13 @@
  * @Author: liuhongbo liuhongbo@dip-ai.com
  * @Date: 2023-03-27 11:45:35
  * @LastEditors: liuhongbo liuhongbo@dip-ai.com
- * @LastEditTime: 2023-04-21 15:10:26
+ * @LastEditTime: 2023-04-26 16:09:51
  * @FilePath: /minibbs_react/src/pages/Article/index.tsx
  * @Description: ariticle
  */
 import { connect, history, useParams } from 'umi'
 import { Button, Divider, Form, List, Space, Switch, TextArea, Toast } from 'antd-mobile'
-import React, { FC, MutableRefObject, useEffect, useRef, useState } from 'react'
+import React, { FC, MutableRefObject, useEffect, useMemo, useRef, useState } from 'react'
 import { ArticleDetailResult, ArticleForms, CommentAddParams, ReplyCommentInfo } from './const'
 import { articleDetail, articledisLike, articleLike, commentAdd } from '@/utils/service/article'
 import { required } from '@/utils/forms'
@@ -34,6 +34,7 @@ const Article: FC<Props> = ({ user }) => {
     useEffect(() => {
         getArticleDetail()
         window.scrollTo(0, 0)
+        clearCommentBox()
     }, [routerParams.aid])
 
     const getArticleDetail = async () => {
@@ -84,7 +85,6 @@ const Article: FC<Props> = ({ user }) => {
         }
     }
 
-
     const handleSubmitComment = async (value: ArticleForms) => {
         const query: CommentAddParams = {
             ...value,
@@ -110,6 +110,11 @@ const Article: FC<Props> = ({ user }) => {
         } catch (error) {
             console.log('error', error)
         }
+    }
+
+    // 进入页面时重置表单
+    const clearCommentBox = () => {
+        form.resetFields()
     }
 
     return (
